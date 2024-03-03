@@ -4,8 +4,13 @@ import { toast } from "react-toastify";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const signIn = async (email, password, phone, role) => {
-    console.log({ email: email, password: password, phone: phone });
+  const signIn = async (email, password, phone, role, address) => {
+    console.log({
+      email: email,
+      password: password,
+      phone: phone,
+      address: address,
+    });
     if (role == "CompanyWorker" && !role.endsWith("@employee.ac.in")) {
       console.log("not an employee");
       return { data: false, error: true };
@@ -17,6 +22,7 @@ const AuthProvider = ({ children }) => {
         data: {
           phone: phone,
           role: role,
+          address: address,
         },
       },
     });

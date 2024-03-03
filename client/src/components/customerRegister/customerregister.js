@@ -8,12 +8,19 @@ function CustomerRegister() {
   const [password, setPassword] = useState(null);
   const [phone, setPhone] = useState(null);
   const [role, setRole] = useState(null);
+  const [address, setAddress] = useState(null);
   const { currentUser, signOutUser, signIn, loginUser } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const register = async (e) => {
     e.preventDefault();
-    if (email == null || password == null || phone == null || role == null) {
+    if (
+      email == null ||
+      password == null ||
+      phone == null ||
+      role == null ||
+      address == null
+    ) {
       toast.error("All the fields are cumpulsory !" + error, {
         toastId: "RegisterNullError",
         position: "top-right",
@@ -27,7 +34,7 @@ function CustomerRegister() {
       });
       return;
     }
-    const { data, error } = await signIn(email, password, phone, role);
+    const { data, error } = await signIn(email, password, phone, role, address);
     if (error) {
       toast.error("Error in signup : \n" + error, {
         toastId: "SignUpError",
@@ -118,6 +125,21 @@ function CustomerRegister() {
                   }}
                 />
               </div>
+              <div>
+                <label>Address</label>
+                <br />
+                <input
+                  required
+                  type="string"
+                  placeholder="enter address"
+                  value={address}
+                  className="border border-black-100 p-2 w-60"
+                  onChange={(e) => {
+                    setAddress(e.target.value);
+                  }}
+                />
+              </div>
+
               <div className="text-start mt-0 flex flex-col justify-start items-start">
                 <br />
                 <label>
