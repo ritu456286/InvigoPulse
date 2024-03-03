@@ -3,7 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseConfig";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { toast } from "react-toastify";
+import { Box } from "@mui/material";
+import register_svg from "../../asserts/register_svg.svg";
 function CustomerRegister() {
+  const style = {
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    justifyContent: "center",
+    alignItems: "center",
+    p: 2,
+  };
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [phone, setPhone] = useState(null);
@@ -73,13 +82,13 @@ function CustomerRegister() {
     setRole(e.target.value);
   };
   return (
-    <div className="w-full h-full bg-red-700 flex flex-col justify-center items-ceter">
-      <div className="h-fit w-fit py-12 flex flex-col justify-center items-center gap-12">
-        <h1 className="text-center bold text-5xl  p">Create Account</h1>
-        <div className="flex flex-row justify-center items-center gap-12">
-          <div>
+    <div className="w-full h-full py-36 bg-slate-800 backdrop-filter backdrop-blur-lg bg-opacity-70 flex flex-col justify-center items-center h-full">
+      <Box sx={style} flexDirection={"column"} boxShadow={3} borderRadius={1}>
+        <div className="flex justify-center items-center w-full flex-row">
+          <div className="flex justify-center flex-col items-center  w-full px-12 py-4 gap-4">
+            <h1 className="text-xl font-bold">CREATE ACCOUNT</h1>
             <form
-              className="p-12 custom_shadows  flex flex-col justify-center items-start gap-5 w-fit"
+              className="custom_shadows  flex flex-col justify-center items-start gap-5 w-fit"
               onSubmit={(e) => register(e)}
             >
               <div>
@@ -166,17 +175,17 @@ function CustomerRegister() {
                 Create Account
               </button>
             </form>
-            <button
-              className="bg-red-500 py-2 px-11 w-full text-white"
-              onClick={() => navigate("/login/user")}
-            >
-              Already have an account, Login
-            </button>
+            <div>
+              <p>
+                Already have an account?{" "}
+                <span className="text-red-900">
+                  <Link to="/customerlogin">Login here</Link>
+                </span>
+              </p>
+            </div>
           </div>
-          {/*the image*/}
-          {/* <img src={ServiceImg} /> */}
         </div>
-      </div>
+      </Box>
     </div>
   );
 }
