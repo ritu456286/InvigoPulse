@@ -54,10 +54,10 @@ function CustomerLogin() {
         progress: undefined,
         theme: "colored",
       });
-      if (data.user.user_metadata.role == "service_provider") {
-        navigate("/dashboard/provider");
+      if (data.user.user_metadata.role == "customer") {
+        navigate("/customer/");
       } else {
-        navigate("/dashboard/user");
+        console.log("here the link to company inventory");
       }
     }
   };
@@ -118,7 +118,7 @@ function CustomerLogin() {
           </form>
           <button
             className="bg-red-500 py-2 px-11 w-full text-white"
-            onClick={() => navigate("/createuser")}
+            onClick={() => navigate("/register")}
           >
             Don't have an account, Register
           </button>

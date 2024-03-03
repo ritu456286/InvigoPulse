@@ -179,7 +179,7 @@ function CustomerRegister() {
               <p>
                 Already have an account?{" "}
                 <span className="text-red-900">
-                  <Link to="/customerlogin">Login here</Link>
+                  <Link to="/login">Login here</Link>
                 </span>
               </p>
             </div>

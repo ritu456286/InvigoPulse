@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./components/homepage/homepage";
 import CustomerLogin from "./components/customerLogin/customerlogin";
-import CompanyLogin from "./components/companyLogin/companylogin";
-import CompanyRegister from "./components/companyResgister/companyRegister";
 import CustomerRegister from "./components/customerRegister/customerregister";
+import AllProducts from "./components/ConsumerDashboard/allProducts";
+import ConsumerDash from "./components/ConsumerDashboard/ConsumerDash";
 import { AuthProvider } from "./cotexts/AuthContext";
 function App() {
   return (
@@ -12,10 +12,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/customerlogin" element={<CustomerLogin />} />
-          <Route path="/customerregister" element={<CustomerRegister />} />
-          <Route path="/companylogin" element={<CompanyLogin />} />
-          <Route path="/companyregister" element={<CompanyRegister />} />
+          <Route path="/login" element={<CustomerLogin />} />
+          <Route path="/register" element={<CustomerRegister />} />
+          <Route path="/customer" element={<ConsumerDash />}>
+            <Route path="/customer/" element={<AllProducts />} />
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>

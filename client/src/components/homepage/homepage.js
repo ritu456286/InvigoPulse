@@ -59,7 +59,7 @@ function Homepage() {
             </a>
           </div>
           <div className="my-2">
-            <Link to="/customerlogin">
+            <Link to="/login">
               {" "}
               <button className="py-2 px-6 rounded-lg  text-white bg-red-700 first-letter: transition-all duration-300 ease-in-out hover:scale-95">
                 SignIn
@@ -100,7 +100,7 @@ function Homepage() {
             </p>
             <div className="flex gap-6">
               <button className="relative inline-flex items-center px-12 py-3 overflow-hidden text-m text-white border-2 border-white rounded-sm hover:text-white group hover:bg-white">
-                <Link to="/customerlogin">
+                <Link to="/login">
                   <span class="absolute left-0 block w-full h-0 transition-all bg-black opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-500 ease"></span>
                   <span class="absolute right-0 flex items-center justify-start w-6 h-6 duration-500 transform translate-x-full group-hover:translate-x-0 ease">
                     <svg
@@ -122,7 +122,7 @@ function Homepage() {
                 </Link>
               </button>
               <button className="rounded-3xl px-4 py-2 bg-red-900 text-white text-lg font-semibold transition-all duration-200 hover:scale-102 hover:bg-transparent hover:text-white hover:border-2 hover:border-white">
-                <Link to="/customerregister">Register</Link>
+                <Link to="/register">Register</Link>
               </button>
             </div>
           </div>
