@@ -82,7 +82,7 @@ function CustomerRegister() {
     setRole(e.target.value);
   };
   return (
-    <div className="w-full h-full py-36 bg-slate-800 backdrop-filter backdrop-blur-lg bg-opacity-70 flex flex-col justify-center items-center h-full">
+    <div className="w-full h-full min-h-dvh py-36 bg-slate-800 backdrop-filter backdrop-blur-lg bg-opacity-70 flex flex-col justify-center items-center h-full">
       <Box sx={style} flexDirection={"column"} boxShadow={3} borderRadius={1}>
         <div className="flex justify-center items-center w-full flex-row">
           <div className="flex justify-center flex-col items-center  w-full px-12 py-4 gap-4">
