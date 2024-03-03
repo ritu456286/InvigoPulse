@@ -66,92 +66,94 @@ function CustomerRegister() {
     setRole(e.target.value);
   };
   return (
-    <div className="w-screen h-fit py-12 flex flex-col justify-center items-center gap-12">
-      <h1 className="text-center bold text-5xl  p">Create Account</h1>
-      <div className="flex flex-row justify-center items-center gap-12">
-        <div>
-          <form
-            className="p-12 custom_shadows  flex flex-col justify-center items-start gap-5 w-fit"
-            onSubmit={(e) => register(e)}
-          >
-            <div>
-              <label>Email</label>
-              <br />
-              <input
-                required
-                type="text"
-                placeholder="enter email"
-                value={email}
-                className="border border-black-100 p-2 w-60"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label>Phone no</label>
-              <br />
-              <input
-                required
-                type="number"
-                placeholder="enter phone no"
-                value={phone}
-                className="border border-black-100 p-2 w-60"
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                }}
-              />
-            </div>
-
-            <div>
-              <label>Password</label>
-              <br />
-              <input
-                required
-                type="password"
-                placeholder="enter password"
-                className="border border-black-100 p-2 w-60"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-            <div className="text-start mt-0 flex flex-col justify-start items-start">
-              <br />
-              <label>
-                <input
-                  type="radio"
-                  value="CompanyWorker"
-                  name="role"
-                  onChange={handleChnage}
-                />
-                CompanyWorker
+    <div className="w-full h-full bg-red-700 flex flex-col justify-center items-ceter">
+      <div className="h-fit w-fit py-12 flex flex-col justify-center items-center gap-12">
+        <h1 className="text-center bold text-5xl  p">Create Account</h1>
+        <div className="flex flex-row justify-center items-center gap-12">
+          <div>
+            <form
+              className="p-12 custom_shadows  flex flex-col justify-center items-start gap-5 w-fit"
+              onSubmit={(e) => register(e)}
+            >
+              <div>
+                <label>Email</label>
                 <br />
-              </label>
-              <label>
                 <input
-                  type="radio"
-                  value="customer"
-                  name="role"
-                  onChange={handleChnage}
+                  required
+                  type="text"
+                  placeholder="enter email"
+                  value={email}
+                  className="border border-black-100 p-2 w-60"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
-                Customer
-              </label>
-            </div>
-            <button className="bg-red-500 py-2 px-11 text-white w-60 ">
-              Create Account
+              </div>
+              <div>
+                <label>Phone no</label>
+                <br />
+                <input
+                  required
+                  type="number"
+                  placeholder="enter phone no"
+                  value={phone}
+                  className="border border-black-100 p-2 w-60"
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div>
+                <label>Password</label>
+                <br />
+                <input
+                  required
+                  type="password"
+                  placeholder="enter password"
+                  className="border border-black-100 p-2 w-60"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="text-start mt-0 flex flex-col justify-start items-start">
+                <br />
+                <label>
+                  <input
+                    type="radio"
+                    value="CompanyWorker"
+                    name="role"
+                    onChange={handleChnage}
+                  />
+                  CompanyWorker
+                  <br />
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="customer"
+                    name="role"
+                    onChange={handleChnage}
+                  />
+                  Customer
+                </label>
+              </div>
+              <button className="bg-red-500 py-2 px-11 text-white w-60 ">
+                Create Account
+              </button>
+            </form>
+            <button
+              className="bg-red-500 py-2 px-11 w-full text-white"
+              onClick={() => navigate("/login/user")}
+            >
+              Already have an account, Login
             </button>
-          </form>
-          <button
-            className="bg-red-500 py-2 px-11 w-full text-white"
-            onClick={() => navigate("/login/user")}
-          >
-            Already have an account, Login
-          </button>
+          </div>
+          {/*the image*/}
+          {/* <img src={ServiceImg} /> */}
         </div>
-        {/*the image*/}
-        {/* <img src={ServiceImg} /> */}
       </div>
     </div>
   );

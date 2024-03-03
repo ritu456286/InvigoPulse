@@ -1,11 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 import { supabase } from "../supabaseConfig";
-
+import { toast } from "react-toastify";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const signIn = async (email, password, phone, role) => {
     console.log({ email: email, password: password, phone: phone });
+    if (role == "CompanyWorker" && !role.endsWith("@employee.ac.in")) {
+      console.log("not an employee");
+      return { data: false, error: true };
+    }
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
