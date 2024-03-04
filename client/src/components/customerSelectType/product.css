@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .product-table th,
+  .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .line-row {
+    background-color: #f2f2f2;
+  }
+  
+  .line-row hr {
+    margin: 0;
+  }
+  

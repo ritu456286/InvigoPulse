@@ -1,0 +1,28 @@
+
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .line-row {
+    background-color: transparent;
+  }
+  
+  .line-row hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 0;
+  }
+  
