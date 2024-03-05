@@ -54,10 +54,28 @@ function CustomerLogin() {
         progress: undefined,
         theme: "colored",
       });
-      if (data.user.user_metadata.role == "customer") {
-        navigate("/customer/");
+      if (data.user.user_metadata.role == "CompanyWorker") {
+        console.log(data.user.email);
+        axios
+          .post(" /companyemail", { email: data.user.email })
+          .then((response) => {
+            console.log("registered employee", response.data);
+          })
+          .catch((error) => {
+            console.error("Error in registration ", error);
+          });
+        navigate("/manage/business");
       } else {
-        console.log("here the link to company inventory");
+        console.log(data.user.email);
+        axios
+          .post(" /customeremail", { email: data.user.email })
+          .then((response) => {
+            console.log("registered customer", response.data);
+          })
+          .catch((error) => {
+            console.error("Error in registration ", error);
+          });
+        navigate("/consumer/");
       }
     }
   };
