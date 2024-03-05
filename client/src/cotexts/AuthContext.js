@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
       },
     });
     if (data) {
-      setCurrentUser(data.user);
+      await setCurrentUser(data.user);
       sessionStorage.setItem("currentUser", JSON.stringify(data.user));
     } else {
       setCurrentUser(null);

@@ -15,6 +15,8 @@ import ProductSalesPage from "./components/customerSelectType/products";
 import CustomerCart from "./components/customerCart/customercart";
 import MyOrdersPage from "./components/customerOrders/customerorders";
 import Example from "./components/ConsumerDashboard/example";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <AuthProvider>
@@ -36,6 +38,7 @@ function App() {
           <Route path="/customersales" element={<ProductSalesPage />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </AuthProvider>
   );
 }
