@@ -75,7 +75,7 @@ function CustomerLogin() {
           .catch((error) => {
             console.error("Error in registration ", error);
           });
-        navigate("/consumer/");
+        navigate("/customer/");
       }
     }
   };

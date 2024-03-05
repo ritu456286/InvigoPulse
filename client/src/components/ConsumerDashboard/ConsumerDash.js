@@ -7,10 +7,12 @@ import axios from "axios";
 const ConsumerDash = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+  const user = sessionStorage.getItem("currentUser");
   useEffect(() => {
-    if (currentUser == null) {
+    console.log(currentUser);
+    console.log(user);
+    if (user == null) {
       navigate("/login");
-    } else {
     }
   }, []);
   return (

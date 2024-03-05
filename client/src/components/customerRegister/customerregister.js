@@ -4,6 +4,7 @@ import { supabase } from "../../supabaseConfig";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { toast } from "react-toastify";
 import { Box } from "@mui/material";
+
 import register_svg from "../../asserts/register_svg.svg";
 import axios from "axios";
 function CustomerRegister() {
@@ -93,7 +94,7 @@ function CustomerRegister() {
           .catch((error) => {
             console.error("Error in registration ", error);
           });
-        navigate("/consumer/");
+        navigate("/customer/");
       }
     }
   };

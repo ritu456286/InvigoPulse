@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./customercart.css"; // Import CSS file for styling
 import ResponsiveAppBarcust from "../navbar/navbarcust";
+import { AuthContext } from "../../cotexts/AuthContext";
 const CustomerCart = () => {
   const [cartData, setCartData] = useState([]);
-
+  const { currentUser } = useContext(AuthContext);
   useEffect(() => {
-    fetchCartData(); // Fetch cart data when component mounts
+    //fetchCartData(); // Fetch cart data when component mounts
+    console.log(currentUser);
   }, []); // Empty dependency array ensures useEffect runs only once when component mounts
 
   const fetchCartData = () => {
