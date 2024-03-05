@@ -5,6 +5,7 @@ import { AuthContext } from "../../cotexts/AuthContext";
 import { toast } from "react-toastify";
 import { Box } from "@mui/material";
 import register_svg from "../../asserts/register_svg.svg";
+import axios from "axios";
 function CustomerRegister() {
   const style = {
     bgcolor: "background.paper",
@@ -71,10 +72,28 @@ function CustomerRegister() {
         progress: undefined,
         theme: "colored",
       });
-      if (data.user.user_metadata.role == "service_provider") {
+      if (data.user.user_metadata.role == "CompanyWorker") {
+        console.log(data.user.email);
+        axios
+          .post(" /companyemail", { email: data.user.email })
+          .then((response) => {
+            console.log("registered employee", response.data);
+          })
+          .catch((error) => {
+            console.error("Error in registration ", error);
+          });
         navigate("/manage/business");
       } else {
-        navigate("/dashboard/user");
+        console.log(data.user.email);
+        axios
+          .post(" /customeremail", { email: data.user.email })
+          .then((response) => {
+            console.log("registered customer", response.data);
+          })
+          .catch((error) => {
+            console.error("Error in registration ", error);
+          });
+        navigate("/consumer/");
       }
     }
   };

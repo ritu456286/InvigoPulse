@@ -6,14 +6,14 @@ import CustomerRegister from "./components/customerRegister/customerregister";
 import AllProducts from "./components/ConsumerDashboard/allProducts";
 import ConsumerDash from "./components/ConsumerDashboard/ConsumerDash";
 import { AuthProvider } from "./cotexts/AuthContext";
-import CompanyPage from './components/companyDashboard/companydashboard';
+import CompanyPage from "./components/companyDashboard/companydashboard";
 // import App1 from './app1';
-import CompanyInventory from './components/companyInventory/companyInventory';
-import AddStock from './components/companyInventory/addstocks';
-import CompanySales from './components/companyOrdersAndSales/companysales';
-import ProductSalesPage from './components/customerSelectType/products';
-import CustomerCart from './components/customerCart/customercart';
-import MyOrdersPage from './components/customerOrders/customerorders';
+import CompanyInventory from "./components/companyInventory/companyInventory";
+import AddStock from "./components/companyInventory/addstocks";
+import CompanySales from "./components/companyOrdersAndSales/companysales";
+import ProductSalesPage from "./components/customerSelectType/products";
+import CustomerCart from "./components/customerCart/customercart";
+import MyOrdersPage from "./components/customerOrders/customerorders";
 function App() {
   return (
     <AuthProvider>
@@ -24,14 +24,14 @@ function App() {
           <Route path="/register" element={<CustomerRegister />} />
           <Route path="/customer" element={<ConsumerDash />}>
             <Route path="/customer/" element={<AllProducts />} />
-          <Route path="/customercart" element={<CustomerCart />} />
-          <Route path="/customerorders" element={<MyOrdersPage />} />
-        <Route path="/companypage" element={<CompanyPage/>} />
-        <Route path="/companyinventory" element={<CompanyInventory/>} />
-        <Route path="/companyaddstock" element={<AddStock/>} />
-        <Route path="/companysales" element={<CompanySales/>} />
-        <Route path="/customersales" element={<ProductSalesPage/>} />
+            <Route path="/customer/customercart" element={<CustomerCart />} />
+            <Route path="/customer/customerorders" element={<MyOrdersPage />} />
           </Route>
+          <Route path="/companypage" element={<CompanyPage />} />
+          <Route path="/companyinventory" element={<CompanyInventory />} />
+          <Route path="/companyaddstock" element={<AddStock />} />
+          <Route path="/companysales" element={<CompanySales />} />
+          <Route path="/customersales" element={<ProductSalesPage />} />
         </Routes>
       </Router>
     </AuthProvider>
