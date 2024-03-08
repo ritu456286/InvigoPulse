@@ -14,7 +14,6 @@ import CompanySales from "./components/companyOrdersAndSales/companysales";
 import ProductSalesPage from "./components/customerSelectType/products";
 import CustomerCart from "./components/customerCart/customercart";
 import MyOrdersPage from "./components/customerOrders/customerorders";
-import Example from "./components/ConsumerDashboard/example";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function App() {
@@ -29,7 +28,6 @@ function App() {
             <Route path="/customer/" element={<AllProducts />} />
             <Route path="/customer/customercart" element={<CustomerCart />} />
             <Route path="/customer/customerorders" element={<MyOrdersPage />} />
-            <Route path="/customer/ex" element={<Example />} />
           </Route>
           <Route path="/companypage" element={<CompanyPage />} />
           <Route path="/companyinventory" element={<CompanyInventory />} />

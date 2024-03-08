@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { toast } from "react-toastify";
 import register_svg from "../../asserts/register_svg.svg";
+import axios from "axios";
 function CustomerLogin() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);

@@ -4,9 +4,8 @@ import { supabase } from "../../supabaseConfig";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { toast } from "react-toastify";
 import { Box } from "@mui/material";
-
-import register_svg from "../../asserts/register_svg.svg";
 import axios from "axios";
+import register_svg from "../../asserts/register_svg.svg";
 function CustomerRegister() {
   const style = {
     bgcolor: "background.paper",

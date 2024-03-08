@@ -4,6 +4,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ResponsiveAppBarcust from "../navbar/navbarcust";
 const ConsumerDash = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
@@ -16,8 +17,8 @@ const ConsumerDash = () => {
     }
   }, []);
   return (
-    <div>
-      <h1>Consumer Dashboard</h1>
+    <div className="p-20">
+      <ResponsiveAppBarcust />
       <Outlet />
     </div>
   );

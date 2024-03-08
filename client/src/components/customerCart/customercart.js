@@ -3,11 +3,13 @@ import axios from "axios";
 import "./customercart.css"; // Import CSS file for styling
 import ResponsiveAppBarcust from "../navbar/navbarcust";
 import { AuthContext } from "../../cotexts/AuthContext";
+import data from "../../json/allproducts.json";
 const CustomerCart = () => {
   const [cartData, setCartData] = useState([]);
   const { currentUser } = useContext(AuthContext);
   useEffect(() => {
     //fetchCartData(); // Fetch cart data when component mounts
+    setCartData(data);
     console.log(currentUser);
   }, []); // Empty dependency array ensures useEffect runs only once when component mounts
 
@@ -71,34 +73,64 @@ const CustomerCart = () => {
   };
 
   return (
-    <div>
-      <ResponsiveAppBarcust />
-      <h2>My Cart</h2>
-      <table className="cart-table">
-        <thead>
+    <div className="flex items-center justify-center">
+      {/* <ResponsiveAppBarcust /> */}
+      <table
+        className="divide-y divide-gray-200"
+        style={{ margin: "auto", width: "80%" }}
+      >
+        <thead className="bg-red-800 text-white">
           <tr>
-            <th>Inventory</th>
-            <th>Brand</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Size</th>
-            <th>Actions</th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Inventory
+            </th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Brand
+            </th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Description
+            </th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Quantity
+            </th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Price
+            </th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Size
+            </th>
+            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+              Actions
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-white divide-y divide-gray-200">
           {cartData.map((item, index) => (
             <React.Fragment key={index}>
               <tr>
-                <td>{item.inventoryId}</td>
-                <td>{item.brand}</td>
-                <td>{item.Description}</td>
-                <td>{item.quantity}</td>
-                <td>{item.Price}</td>
-                <td>{item.Size}</td>
-                <td>
-                  <button onClick={() => handleCheckout(item)}>Checkout</button>
-                  <button onClick={() => handleDeleteItem(item)}>Delete</button>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.inventoryId}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.brand}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.Description}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.quantity}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.Price}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.Size}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button
+                    className="text-white bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium"
+                    onClick={() => handleCheckout(item)}
+                  >
+                    Checkout
+                  </button>
+                  <button
+                    className="text-white bg-red-800 hover:bg-red-700 px-3 py-2 rounded-md text-sm font-medium ml-4"
+                    onClick={() => handleDeleteItem(item)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
               <tr className="line-row">

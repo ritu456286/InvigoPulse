@@ -1,26 +1,29 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-
-const pages = ['Customer Sales', 'Customer Orders', 'Customer Cart', ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+import * as React from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { AuthContext } from "../../cotexts/AuthContext";
+import { useContext } from "react";
+import { toast } from "react-toastify";
+const pages = ["Customer Sales", "Customer Orders", "Customer Cart"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function ResponsiveAppBarcust() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { currentUser, signOutUser, signIn, loginUser } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -35,112 +38,58 @@ function ResponsiveAppBarcust() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const logOut = async () => {
+    await signOutUser();
+    toast.success("Logged out successfully !", {
+      toastId: "Logout",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    navigate("/login");
+  };
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'black' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'white',
-              textDecoration: 'none',
+    <nav className="flex backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 justify-evenly fixed px-5 right-0 left-0 top-0 mb-20 bg-white z-10">
+      <div className="flex justify-between w-full">
+        <h3 className="text-lg font-bold py-3">InvigoPulse</h3>
+        <div className="flex w-auto space-x-4 text-gray-900 gap-4">
+          <Link
+            to="/customer/"
+            className="font-semibold py-3 hover:border-b-2 hover:border-red-600"
+          >
+            Browse
+          </Link>
+          <Link
+            to="/customer/customercart"
+            className="font-semibold py-3 hover:border-b-2 hover:border-red-600"
+          >
+            My Cart
+          </Link>
+          <Link
+            to="/customer/customerorders"
+            className="font-semibold py-3 hover:border-b-2 hover:border-red-600"
+          >
+            My Orders
+          </Link>
+          <button
+            className=" my-2 align-middle text-white w-auto bg-gradient-to-r py-3 from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 text-center"
+            onClick={() => {
+              logOut();
             }}
           >
-            InvigoPulse1
-          </Typography>
+            <p>Logout</p>
+          </button>
+        </div>
+      </div>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="menu"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" sx={{ color: 'black' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                component={Link}
-                to={`/${page.toLowerCase().replace(' ', '')}`}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Avatar" src="/static/images/avatar.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" sx={{ color: 'black' }}>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+      {/* {(currentUser.user_metadata.role == 'service_provider') &&
+          <Link to="/dashboard/provider">Provider Dashboard</Link>}*/}
+    </nav>
   );
 }
 export default ResponsiveAppBarcust;
