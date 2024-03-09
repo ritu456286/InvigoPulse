@@ -10,8 +10,9 @@ const AuthProvider = ({ children }) => {
       password: password,
       phone: phone,
       address: address,
+      role: role,
     });
-    if (role == "CompanyWorker" && !role.endsWith("@employee.ac.in")) {
+    if (role == "CompanyWorker" && !email.endsWith("@employee.ac.in")) {
       console.log("not an employee");
       return { data: false, error: true };
     }
@@ -27,8 +28,11 @@ const AuthProvider = ({ children }) => {
       },
     });
     if (data) {
+      console.log(data)
       await setCurrentUser(data.user);
       sessionStorage.setItem("currentUser", JSON.stringify(data.user));
+      sessionStorage.setItem("role", JSON.stringify(data.user.user_metadata.role));
+      sessionStorage.setItem("email", JSON.stringify(data.user.email));
     } else {
       setCurrentUser(null);
     }
@@ -44,6 +48,8 @@ const AuthProvider = ({ children }) => {
       console.log("logged in", data);
       setCurrentUser(data.user);
       sessionStorage.setItem("currentUser", JSON.stringify(data.user));
+      sessionStorage.setItem("role", JSON.stringify(data.user.user_metadata.role));
+      sessionStorage.setItem("email", JSON.stringify(data.user.email));
     } else {
       console.log(error);
       setCurrentUser(null);
@@ -55,6 +61,8 @@ const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signOut();
     console.log("error, lgged out", error);
     sessionStorage.removeItem("currentUser");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("email");
     setCurrentUser(null);
   };
 

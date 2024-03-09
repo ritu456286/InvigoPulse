@@ -1,0 +1,36 @@
+.company-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .company-form {
+    width: 300px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .form-label {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .form-input {
+    border: 1px solid lightred;
+    width: calc(100% - 22px);
+    padding: 5px;
+    margin-left: 10px;
+    cursor: text;
+  }
+  
+  .submit-button {
+    margin-top: 10px;
+    border: 1px solid lightred;
+    padding: 5px 15px;
+    background-color: transparent;
+    color: lightred;
+    cursor: pointer;
+  }
+  

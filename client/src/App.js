@@ -14,8 +14,12 @@ import CompanySales from "./components/companyOrdersAndSales/companysales";
 import ProductSalesPage from "./components/customerSelectType/products";
 import CustomerCart from "./components/customerCart/customercart";
 import MyOrdersPage from "./components/customerOrders/customerorders";
+import Example from "./components/ConsumerDashboard/example";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CompanyDash from "./components/companyDashboard/companydash";
+import CompanyProfile from "./components/companyProfile/companyprofile";
+import CustomerProfile from "./components/customerprofile/customerprofile";
 function App() {
   return (
     <AuthProvider>
@@ -24,16 +28,21 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<CustomerLogin />} />
           <Route path="/register" element={<CustomerRegister />} />
-          <Route path="/customer" element={<ConsumerDash />}>
-            <Route path="/customer/" element={<AllProducts />} />
-            <Route path="/customer/customercart" element={<CustomerCart />} />
-            <Route path="/customer/customerorders" element={<MyOrdersPage />} />
+          <Route path="/customer/" element={<ConsumerDash />}>
+            {/* <Route path="/customer/" element={<AllProducts />} /> */}
+            
+            <Route path="/customer/ex" element={<Example />} />
           </Route>
-          <Route path="/companypage" element={<CompanyPage />} />
-          <Route path="/companyinventory" element={<CompanyInventory />} />
-          <Route path="/companyaddstock" element={<AddStock />} />
-          <Route path="/companysales" element={<CompanySales />} />
-          <Route path="/customersales" element={<ProductSalesPage />} />
+          <Route path="/company/companypage" element={<CompanyPage />} />
+          <Route path="/company/" element={<CompanyDash />} />
+          <Route path="/company/companyinventory" element={<CompanyInventory />} />
+          <Route path="/company/companyaddstock" element={<AddStock />} />
+          <Route path="/company/companysales" element={<CompanySales />} />
+          <Route path="/customer/customersales" element={<ProductSalesPage />} />
+          <Route path="/company/companyprofile" element={<CompanyProfile />} />
+          <Route path="/customer/customerprofile" element={<CustomerProfile />} />
+          <Route path="/customer/customercart" element={<CustomerCart />} />
+            <Route path="/customer/customerorders" element={<MyOrdersPage />} />
         </Routes>
       </Router>
       <ToastContainer />

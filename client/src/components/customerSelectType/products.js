@@ -8,10 +8,12 @@ const ProductSalesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(100);
   const [productQuantities, setProductQuantities] = useState({});
+  const email=sessionStorage.getItem("email");
   const fetchProductSalesData = () => {
     axios.get('/productssales')
       .then(response => {
         // Update state with fetched data
+        console.log(response.data)
         setProductSales(response.data);
       })
       .catch(error => {
@@ -28,10 +30,10 @@ const ProductSalesPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleQuantityChange = (inventoryId, brand, Description, action) => {
-    const key = `${inventoryId}-${brand}-${Description}`; // Concatenate the identifiers
+  const handleQuantityChange = (inventoryId, brand, Description, companyemail, action) => {
+    const key = `${inventoryId}-${brand}-${Description}-${companyemail}`; // Concatenate the identifiers
     const currentQuantity = productQuantities[key] || 0;
-    const totalQuantity = productSales.find(product => product.InventoryID === inventoryId && product.Brand === brand && product.Description === Description).TotalQuantity;
+    const totalQuantity = productSales.find(product => product.InventoryID === inventoryId && product.Brand === brand && product.Description === Description && product.companyemail === companyemail).TotalQuantity;
 
     let updatedQuantity;
     if (action === 'increment') {
@@ -43,10 +45,10 @@ const ProductSalesPage = () => {
     setProductQuantities({ ...productQuantities, [key]: updatedQuantity });
   };
 
-  const handleAddToCart = (inventoryId, brand, Description) => {
-    const key = `${inventoryId}-${brand}-${Description}`;
+  const handleAddToCart = (inventoryId, brand, Description, Price, City, companyemail) => {
+    const key = `${inventoryId}-${brand}-${Description}-${companyemail}`;
     const quantity = productQuantities[key] || 0;
-    axios.post('/addcart', { inventoryId, brand, Description, quantity })
+    axios.post('/addcart', { inventoryId, brand, Description, quantity, Price, City, email:email, companyemail })
       .then(response => {
         console.log('Product added to cart:', response.data);
       })
@@ -108,12 +110,16 @@ const ProductSalesPage = () => {
       <table className="product-table">
         <thead>
           <tr>
+            <th>Company Name</th>
             <th>Inventory</th>
             <th>Brand</th>
             <th>Description</th>
             <th>Size</th>
+            <th>City</th>
             <th>Sales Price</th>
+            
             <th>Quantity</th>
+            
             <th>Action</th>
           </tr>
         </thead>
@@ -122,20 +128,22 @@ const ProductSalesPage = () => {
           {currentItems.map((product, index) => (
             <React.Fragment key={index}>
               <tr>
+                <td>{product.companyname}</td>
                 <td>{product.InventoryID}</td>
                 <td>{product.Brand}</td>
                 <td>{product.Description}</td>
                 <td>{product.Size}</td>
+                <td>{product.City}</td>
                 <td>{product.Price}</td>
                 <td>
                   <div>
-                    <button onClick={() => handleQuantityChange(product.InventoryID, product.Brand, product.Description, 'decrement')}>-</button>
-                    <span>{productQuantities[`${product.InventoryID}-${product.Brand}-${product.Description}`] || 0}</span>
-                    <button onClick={() => handleQuantityChange(product.InventoryID, product.Brand, product.Description, 'increment')}>+</button>
+                    <button onClick={() => handleQuantityChange(product.InventoryID, product.Brand, product.Description, product.companyemail,  'decrement')}>-</button>
+                    <span>{productQuantities[`${product.InventoryID}-${product.Brand}-${product.Description}-${product.companyemail}`] || 0}</span>
+                    <button onClick={() => handleQuantityChange(product.InventoryID, product.Brand, product.Description, product.companyemail,  'increment')}>+</button>
                   </div>
                 </td>
                 <td>
-                  <button onClick={() => handleAddToCart(product.InventoryID, product.Brand, product.Description)}>Add to Cart</button>
+                  <button onClick={() => handleAddToCart(product.InventoryID, product.Brand, product.Description, product.Price,product.City, product.companyemail)}>Add to Cart</button>
                 </td>
               </tr>
               <tr className="line-row">

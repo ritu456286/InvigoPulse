@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useContext, useEffect } from "react";
+import { Link, useHistory  } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,14 +14,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import { AuthContext } from "../../cotexts/AuthContext";
 const pages = ['Company Page', 'Company Inventory', 'Company AddStock', 'Company Sales'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { signOutUser } = useContext(AuthContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -35,7 +36,15 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  
+  const signout = async (e) => {
+    e.preventDefault();
+    
+    const data = await signOutUser();
+    
+    // Redirect to the homepage ("/")
+    window.location.href = "/";
+};
   return (
     <AppBar position="static" sx={{ backgroundColor: 'black' }}>
       <Container maxWidth="xl">
@@ -56,7 +65,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            InvigoPulse1
+            InvigoPulse
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -101,7 +110,7 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 component={Link}
-                to={`/${page.toLowerCase().replace(' ', '')}`}
+                to={`/company/${page.toLowerCase().replace(' ', '')}`}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
@@ -112,7 +121,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Avatar" src="/static/images/avatar.jpg" />
+                <Avatar alt="Profile" src="/static/images/avatar.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -132,10 +141,21 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" sx={{ color: 'black' }}>{setting}</Typography>
-                </MenuItem>
-              ))}
+      <MenuItem key={setting} onClick={setting === 'Logout' ? signout : handleCloseUserMenu}>
+      {setting === 'Profile' ? (
+        <Link to="/company/companyprofile">
+          <Typography textAlign="center" sx={{ color: 'black' }}>{setting}</Typography>
+        </Link>
+      ) : setting === 'Logout' ? (
+        
+          <Typography textAlign="center" sx={{ color: 'black' }}>{setting}</Typography>
+        
+      ) : (
+        <Typography textAlign="center" sx={{ color: 'black' }}>{setting}</Typography>
+      )}
+    </MenuItem>
+    
+    ))}
             </Menu>
           </Box>
         </Toolbar>

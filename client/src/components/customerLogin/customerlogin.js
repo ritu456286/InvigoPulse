@@ -65,7 +65,7 @@ function CustomerLogin() {
           .catch((error) => {
             console.error("Error in registration ", error);
           });
-        navigate("/manage/business");
+        navigate("/company/");
       } else {
         console.log(data.user.email);
         axios

@@ -4,10 +4,14 @@ import './MyOrdersPage.css'; // Import CSS file
 import ResponsiveAppBarcust from '../navbar/navbarcust';
 const MyOrdersPage = () => {
   const [orders, setOrders] = useState([]);
-
+  const email=sessionStorage.getItem("email");
   useEffect(() => {
     // Fetch data from /customerorders endpoint using Axios
-    axios.get('/customerorders')
+    axios.get('/customerorders',{
+      params: {
+        email: email
+      }
+    })
       .then(response => {
         // Update state with fetched data
         setOrders(response.data);
@@ -24,6 +28,7 @@ const MyOrdersPage = () => {
       <table className="cart-table"> {/* Apply CSS class for table */}
         <thead>
           <tr>
+          <th>Company Name</th>
             <th>Inventory</th>
             <th>Brand</th>
             <th>Description</th>
@@ -35,6 +40,7 @@ const MyOrdersPage = () => {
           {orders.map((order, index) => (
             <React.Fragment key={index}>
               <tr>
+              <td>{order.companyName}</td>
                 <td>{order.inventoryId}</td>
                 <td>{order.brand}</td>
                 <td>{order.Description}</td>

@@ -4,8 +4,9 @@ import { supabase } from "../../supabaseConfig";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { toast } from "react-toastify";
 import { Box } from "@mui/material";
-import axios from "axios";
+
 import register_svg from "../../asserts/register_svg.svg";
+import axios from "axios";
 function CustomerRegister() {
   const style = {
     bgcolor: "background.paper",
@@ -75,18 +76,18 @@ function CustomerRegister() {
       if (data.user.user_metadata.role == "CompanyWorker") {
         console.log(data.user.email);
         axios
-          .post(" /companyemail", { email: data.user.email })
+          .post(" /companyemailreg", { email: data.user.email })
           .then((response) => {
             console.log("registered employee", response.data);
           })
           .catch((error) => {
             console.error("Error in registration ", error);
           });
-        navigate("/manage/business");
+        navigate("/company/");
       } else {
         console.log(data.user.email);
         axios
-          .post(" /customeremail", { email: data.user.email })
+          .post(" /customeremailreg", { email: data.user.email })
           .then((response) => {
             console.log("registered customer", response.data);
           })

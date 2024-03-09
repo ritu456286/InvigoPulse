@@ -3,46 +3,53 @@ import axios from "axios";
 import "./customercart.css"; // Import CSS file for styling
 import ResponsiveAppBarcust from "../navbar/navbarcust";
 import { AuthContext } from "../../cotexts/AuthContext";
-import data from "../../json/allproducts.json";
 const CustomerCart = () => {
   const [cartData, setCartData] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  const email=sessionStorage.getItem("email");
   useEffect(() => {
-    //fetchCartData(); // Fetch cart data when component mounts
-    setCartData(data);
-    console.log(currentUser);
+    fetchCartData(email); // Fetch cart data when component mounts
+    console.log(email);
   }, []); // Empty dependency array ensures useEffect runs only once when component mounts
 
-  const fetchCartData = () => {
+  const fetchCartData = (email) => {
+    console.log(email);
     // Fetch data from /customercart endpoint using Axios
-    axios
-      .get("/customercart")
+    axios.get('/customercart', {
+      params: {
+        email: email
+      }
+    })
       .then((response) => {
         // Update state with fetched data
+        console.log(response.data);
         setCartData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching customer cart data:", error);
       });
+      console.log(cartData);
   };
 
   const handleCheckout = (item) => {
     // Send a POST request to /customercheckout with the checkout data
-    const { brand, Description, inventoryId, quantity, Size, Price } = item;
+    const { brand, Description, inventoryId, quantity, Size, Price, companyemail } = item;
     axios
       .post("/customercheckout", {
+        email: email,
         brand,
         Description,
         inventoryId,
         quantity,
         Size,
         Price,
+        companyemail
       })
       .then((response) => {
         // Handle success, maybe show a message to the user
         console.log("Checkout successful:", response.data);
         // After successful checkout, fetch updated cart data
-        fetchCartData();
+        fetchCartData(email);
       })
       .catch((error) => {
         console.error("Error during checkout:", error);
@@ -51,21 +58,24 @@ const CustomerCart = () => {
 
   const handleDeleteItem = (item) => {
     // Send a POST request to /customerdeleteitem with the delete data
-    const { brand, Description, inventoryId, quantity, Size, Price } = item;
+    const { brand, Description, inventoryId, quantity, Size, Price, companyemail } = item;
     axios
       .post("/customerdeleteitem", {
+        email: email,
         brand,
         Description,
         inventoryId,
         quantity,
         Size,
         Price,
+        companyemail
+
       })
       .then((response) => {
         // Handle success, maybe show a message to the user
         console.log("Item deleted successfully:", response.data);
         // After deleting the item, fetch the updated cart data
-        fetchCartData();
+        fetchCartData(email);
       })
       .catch((error) => {
         console.error("Error deleting item:", error);
@@ -73,64 +83,38 @@ const CustomerCart = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      {/* <ResponsiveAppBarcust /> */}
-      <table
-        className="divide-y divide-gray-200"
-        style={{ margin: "auto", width: "80%" }}
-      >
-        <thead className="bg-red-800 text-white">
+    <div>
+      <ResponsiveAppBarcust />
+      <h2>My Cart</h2>
+      <table className="cart-table">
+        <thead>
           <tr>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Inventory
-            </th>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Brand
-            </th>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Description
-            </th>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Quantity
-            </th>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Price
-            </th>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Size
-            </th>
-            <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
-              Actions
-            </th>
+            <th>Company Name</th>
+            <th>Inventory</th>
+            <th>Brand</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>City</th>
+            <th>Size</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody>
           {cartData.map((item, index) => (
             <React.Fragment key={index}>
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {item.inventoryId}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.brand}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {item.Description}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.quantity}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.Price}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.Size}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button
-                    className="text-white bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={() => handleCheckout(item)}
-                  >
-                    Checkout
-                  </button>
-                  <button
-                    className="text-white bg-red-800 hover:bg-red-700 px-3 py-2 rounded-md text-sm font-medium ml-4"
-                    onClick={() => handleDeleteItem(item)}
-                  >
-                    Delete
-                  </button>
+                <td>{item.companyName}</td>
+                <td>{item.inventoryId}</td>
+                <td>{item.brand}</td>
+                <td>{item.Description}</td>
+                <td>{item.quantity}</td>
+                <td>{item.Price}</td>
+                <td>{item.city}</td>
+                <td>{item.Size}</td>
+                <td>
+                  <button onClick={() => handleCheckout(item)}>Checkout</button>
+                  <button onClick={() => handleDeleteItem(item)}>Delete</button>
                 </td>
               </tr>
               <tr className="line-row">
