@@ -6,7 +6,7 @@ const csv = require("csv-parser");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root1234",
+  password: "1234",
   database: "db",
 });
 
