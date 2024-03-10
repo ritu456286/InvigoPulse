@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const signIn = async (email, password, phone, role, address) => {
+  const signIn = async (email, password, phone, role, address, city) => {
     console.log({
       email: email,
       password: password,
       phone: phone,
       address: address,
       role: role,
+      city: city,
     });
     if (role == "CompanyWorker" && !email.endsWith("@employee.ac.in")) {
       console.log("not an employee");
@@ -24,14 +25,18 @@ const AuthProvider = ({ children }) => {
           phone: phone,
           role: role,
           address: address,
+          city: city,
         },
       },
     });
     if (data) {
-      console.log(data)
+      console.log(data);
       await setCurrentUser(data.user);
       sessionStorage.setItem("currentUser", JSON.stringify(data.user));
-      sessionStorage.setItem("role", JSON.stringify(data.user.user_metadata.role));
+      sessionStorage.setItem(
+        "role",
+        JSON.stringify(data.user.user_metadata.role)
+      );
       sessionStorage.setItem("email", JSON.stringify(data.user.email));
     } else {
       setCurrentUser(null);
@@ -48,8 +53,12 @@ const AuthProvider = ({ children }) => {
       console.log("logged in", data);
       setCurrentUser(data.user);
       sessionStorage.setItem("currentUser", JSON.stringify(data.user));
-      sessionStorage.setItem("role", JSON.stringify(data.user.user_metadata.role));
+      sessionStorage.setItem(
+        "role",
+        JSON.stringify(data.user.user_metadata.role)
+      );
       sessionStorage.setItem("email", JSON.stringify(data.user.email));
+      console.log(data);
     } else {
       console.log(error);
       setCurrentUser(null);

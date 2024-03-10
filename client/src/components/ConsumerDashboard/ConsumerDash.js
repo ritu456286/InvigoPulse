@@ -10,23 +10,21 @@ const ConsumerDash = () => {
   const { currentUser } = useContext(AuthContext);
   const user = sessionStorage.getItem("currentUser");
   const role = sessionStorage.getItem("role");
-  const email=sessionStorage.getItem("email");
-  const {id}=user;
+  const email = sessionStorage.getItem("email");
+  const { id } = user;
   useEffect(() => {
     console.log(currentUser);
-    
+
     console.log(email);
-    if (user == null||role=='"CompanyWorker"') {
+    if (user == null || role == '"CompanyWorker"') {
       navigate("/login");
-    }
-    else{
+    } else {
       navigate("/customer/customerprofile");
     }
   }, []);
   return (
-    <div>
-      <ResponsiveAppBarcust/>
-      <h1>Consumer Dashboard</h1>
+    <div className="p-20 flex flex-col items-center justify-center gap-8">
+      <ResponsiveAppBarcust />
       <Outlet />
     </div>
   );

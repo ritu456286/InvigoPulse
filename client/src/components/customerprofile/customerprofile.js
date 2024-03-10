@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ResponsiveAppBarcust from '../navbar/navbarcust';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ResponsiveAppBarcust from "../navbar/navbarcust";
 
 const CustomerProfile = () => {
   const [customerData, setCustomerData] = useState(null);
   const email = sessionStorage.getItem("email");
   const [updatedCustomerInfo, setUpdatedCustomerInfo] = useState({
-    name: '',
-    phone: '',
-    city: '',
-    address: ''
+    name: "",
+    phone: "",
+    city: "",
+    address: "",
   });
 
   useEffect(() => {
@@ -17,25 +17,25 @@ const CustomerProfile = () => {
       try {
         const response = await axios.get(`/customerprofile`, {
           params: {
-            email: email
-          }
+            email: email,
+          },
         });
-        console.log('Response from backend:', response.data);
+        console.log("Response from backend:", response.data);
         await setCustomerData(response.data);
-        setUpdatedCustomerInfo(response.data)
+        setUpdatedCustomerInfo(response.data);
       } catch (error) {
-        console.error('Error fetching customer profile:', error);
+        console.error("Error fetching customer profile:", error);
       }
     };
-  
-    fetchCustomerProfile();
+
+    //fetchCustomerProfile();
   }, [email]); // Make sure to include 'email' in the dependency array
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedCustomerInfo(prevState => ({
+    setUpdatedCustomerInfo((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -43,31 +43,34 @@ const CustomerProfile = () => {
     e.preventDefault();
     try {
       const email = sessionStorage.getItem("email");
-      await axios.post('/updatecustomerprofile', {
+      await axios.post("/updatecustomerprofile", {
         email,
-        ...updatedCustomerInfo
+        ...updatedCustomerInfo,
       });
       // Optionally: Fetch updated data again and update state
     } catch (error) {
-      console.error('Error updating customer profile:', error);
+      console.error("Error updating customer profile:", error);
     }
   };
 
-//   if (!customerData) {
-//     return (
-//       <div className="flex flex-col items-center justify-center h-screen bg-red-100">
-//         <ResponsiveAppBarcust />
-//         <p>Loading...</p>
-//       </div>
-//     );
-//   }
+  //   if (!customerData) {
+  //     return (
+  //       <div className="flex flex-col items-center justify-center h-screen bg-red-100">
+  //         <ResponsiveAppBarcust />
+  //         <p>Loading...</p>
+  //       </div>
+  //     );
+  //   }
 
   return (
-    <div className="bg-red-100 min-h-screen">
+    <div className="bg-red-100">
       <ResponsiveAppBarcust />
       <div className="flex flex-col items-center justify-center py-8">
         <h2 className="mb-4 text-2xl font-semibold">Customer Profile</h2>
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 w-96">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg shadow-md p-6 w-96"
+        >
           <div className="mb-4">
             <label>
               Name:
@@ -116,7 +119,10 @@ const CustomerProfile = () => {
               />
             </label>
           </div>
-          <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
+          <button
+            type="submit"
+            className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
+          >
             Submit
           </button>
         </form>
