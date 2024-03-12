@@ -20,7 +20,7 @@ function AddStock() {
         City: '',
         expirydate: ''
     });
-
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -32,6 +32,10 @@ function AddStock() {
             const response = await axios.post('/addstock', { formData });
             console.log('Stock added successfully:', response.data);
             // Optionally, you can reset the form after successful submission
+            setShowSuccessPopup(true);
+            setTimeout(() => {
+                setShowSuccessPopup(false); // Hide the popup after 2 seconds
+              }, 2000);
             setFormData({
                 email: email,
                 InventoryId: '',
@@ -111,6 +115,14 @@ function AddStock() {
                     </form>
                 </div>
             </div>
+            {showSuccessPopup && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-lg">
+                        <h2 className="text-2xl font-semibold text-green-700 mb-4">Stock Added Successfully!</h2>
+                        
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -38,6 +38,9 @@ const AuthProvider = ({ children }) => {
         JSON.stringify(data.user.user_metadata.role)
       );
       sessionStorage.setItem("email", JSON.stringify(data.user.email));
+      sessionStorage.setItem("address", JSON.stringify(data.user.user_metadata.address));
+      sessionStorage.setItem("phone", JSON.stringify(data.user.user_metadata.phone));
+      sessionStorage.setItem("city", JSON.stringify(data.user.user_metadata.city));
     } else {
       setCurrentUser(null);
     }

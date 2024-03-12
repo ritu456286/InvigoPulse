@@ -21,6 +21,7 @@ function CompanySales() {
                   email: email
                 }
               });
+              console.log(response.data)
             setData(response.data);
             setSearchResults(response.data); // Set search results initially to all data
         } catch (error) {
@@ -158,7 +159,7 @@ function CompanySales() {
                     <th className="bg-red-300 text-center py-4">SalesDollars</th>
                     <th className="bg-red-300 text-center py-4">SalesPrice</th>
                     <th className="bg-red-300 text-center py-4">SalesDate</th>
-                    {/* <th className="bg-red-300 text-center py-4">Volume</th> */}
+                    <th className="bg-red-300 text-center py-4">Customer Review</th>
                 </tr>
             </thead>
             <tbody>
@@ -174,6 +175,7 @@ function CompanySales() {
                         <td className="text-center">{sale.SalesDollars}</td>
                         <td className="text-center">{sale.SalesPrice}</td>
                         <td className="text-center">{new Date(sale.SalesDate).toLocaleDateString()}</td>
+                        <td className="text-center">{sale.review}</td>
                         {/* <td className="text-center">{sale.Volume}</td> */}
                     </tr>
                 ))}

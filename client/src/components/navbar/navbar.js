@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { AuthContext } from "../../cotexts/AuthContext";
-const pages = ['Company Page', 'Company Inventory', 'Company AddStock', 'Company Sales'];
+const pages = ['Company Page', 'Company Inventory', 'Company AddStock', 'Company Sales', 'Company Deadstocks'];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -49,7 +49,7 @@ function ResponsiveAppBar() {
     <AppBar position="static" sx={{ backgroundColor: 'black' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap

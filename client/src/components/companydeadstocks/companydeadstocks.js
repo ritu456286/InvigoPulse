@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ResponsiveAppBar from '../navbar/navbar';
 
-function CompanyInventory() {
+function CompanyDeadstocks() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(100);
@@ -12,9 +12,7 @@ function CompanyInventory() {
   const [editableItem, setEditableItem] = useState(null); // Track which item is being edited
   const [editableItems, setEditableItems] = useState(null); 
   const email=sessionStorage.getItem("email");
-  const [showUpdatePopup, setShowUpdatePopup] = useState(false); // State for showing update popup
-  const [showDeletePopup, setShowDeletePopup] = useState(false);
-
+  const [successMessage, setSuccessMessage] = useState('');
   useEffect(() => {
     fetchData();
   }, [currentPage, searchTerm]);
@@ -53,7 +51,12 @@ function CompanyInventory() {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-
+  const handleSuccess = (message) => {
+    setSuccessMessage(message);
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000); // Clear message after 3 seconds
+  };
   const filterResults = (event) => {
     event.preventDefault();
     const filteredData = data.filter((item) => {
@@ -85,14 +88,11 @@ function CompanyInventory() {
     setEditableItems(item);// Set the item being edited
   };
 
-  const handleDelete = async (item) => {
+  const handleaddtosale = async (item) => {
     try {
-      await axios.post('/inventorydelete', { email, item });
+      await axios.post('/inventoryaddtosale', { email, item });
+      handleSuccess('Item added to sale successfully!');
       // Refetch data after deletion
-      setShowDeletePopup(true);
-      setTimeout(() => {
-        setShowDeletePopup(false); // Hide the popup after 2 seconds
-      }, 2000);
       fetchData();
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -102,10 +102,7 @@ function CompanyInventory() {
   const handleSubmit = async () => {
     try {
       await axios.post('/updateinventory', {editableItems, email});
-      setShowUpdatePopup(true);
-      setTimeout(() => {
-        setShowUpdatePopup(false); // Hide the popup after 2 seconds
-      }, 2000);
+      handleSuccess('Item updated successfully!');
       fetchData(); // Refresh data after update
       setEditableItem(null);
       // Reset editableItem state
@@ -144,22 +141,9 @@ function CompanyInventory() {
   return (
     <div>
       <ResponsiveAppBar />
-      {showDeletePopup && (
-        <div className="fixed bottom-0 right-0 bg-red-500 text-white p-2 rounded-tl-lg">
-          Item deleted successfully!
-        </div>
-      )}
-      {/* Update popup */}
-      {showUpdatePopup && (
-        <div className="fixed bottom-0 right-0 bg-green-500 text-white p-2 rounded-tl-lg">
-          Item updated successfully!
-        </div>
-      )}
       <div className="bg-red-100 p-6">
-        <h2 className="text-4xl font-bold text-center mb-8">Warehouse</h2>
-        <Link to="/company/companyaddstock">
-          <button className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mb-4">Add Stock</button>
-        </Link>
+        <h2 className="text-4xl font-bold text-center mb-8">Deadstocks Management</h2>
+        
         <form onSubmit={filterResults} className="mb-8">
         <input
             type="text"
@@ -222,6 +206,11 @@ function CompanyInventory() {
         </datalist>
         <button type="submit" className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2">Submit</button>
     </form>
+    {successMessage && (
+        <div className="fixed bottom-0 right-0 bg-green-500 text-white p-4 rounded-tl-lg">
+          {successMessage}
+        </div>
+      )}
         <div className="flex justify-center mb-4">
           <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2">Previous</button>
           <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length} className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Next</button>
@@ -243,6 +232,7 @@ function CompanyInventory() {
                 <th className="bg-red-300 text-center">Quantity</th>
                 <th className="bg-red-300 text-center">Dollars</th>
                 <th className="bg-red-300 text-center">Selling price</th>
+                <th className="bg-red-300 text-center">Added to Sale</th>
                 <th className="bg-red-300 text-center">Action</th>
               </tr>
             </thead>
@@ -259,40 +249,19 @@ function CompanyInventory() {
                   <td className="text-center">{new Date(item.expirydate).toLocaleDateString()}</td>
                   <td className="text-center">{item.City}</td>
                   <td className="text-center">
-                    {editableItem === item ? (
-                      <input 
-                        type="text" 
-                        value={editableItems.PurchasePrice} 
-                        onChange={(event) => handleChange(event, 'PurchasePrice')} 
-                        className="border border-gray-300 rounded-md px-3 py-2 w-full"
-                      />
-                    ) : (
+                    {
                       item.PurchasePrice
-                    )}
+                    }
                   </td>
                   <td className="text-center">
-                    {editableItem === item ? (
-                      <input 
-                        type="text" 
-                        value={editableItems.Quantity} 
-                        onChange={(event) => handleChange(event, 'Quantity')} 
-                        className="border border-gray-300 rounded-md px-3 py-2 w-full"
-                      />
-                    ) : (
+                    {
                       item.Quantity
-                    )}
+                    }
                   </td>
-                  <td className="text-center" style={{ cursor: editableItem === item ? 'text' : 'auto' }}>
-  {editableItem === item ? (
-    <input 
-      type="text" 
-      value={editableItems.Dollars} 
-      onChange={(event) => handleChange(event, 'Dollars')} 
-      className="border border-gray-300 rounded-md px-3 py-2 w-full"
-    />
-  ) : (
+                  <td className="text-center" >
+  {
     item.Dollars
-  )}
+}
 </td>
 <td className="text-center" style={{ cursor: editableItem === item ? 'text' : 'auto' }}>
   {editableItem === item ? (
@@ -306,6 +275,7 @@ function CompanyInventory() {
     item.Price
   )}
 </td>
+<td className="text-center">{item.addtosale}</td>
 <td className="text-center">
   {editableItem === item ? (
     <React.Fragment>
@@ -315,7 +285,7 @@ function CompanyInventory() {
   ) : (
     <React.Fragment>
       <button onClick={() => handleUpdate(item)} className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2">Update</button>
-      <button onClick={() => handleDelete(item)} className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Delete</button>
+      <button onClick={() => handleaddtosale(item)} className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Add to Sale</button>
     </React.Fragment>
   )}
 </td>
@@ -339,4 +309,4 @@ function CompanyInventory() {
   );
 }
 
-export default CompanyInventory;
+export default CompanyDeadstocks;

@@ -20,6 +20,8 @@ import "react-toastify/dist/ReactToastify.css";
 import CompanyDash from "./components/companyDashboard/companydash";
 import CompanyProfile from "./components/companyProfile/companyprofile";
 import CustomerProfile from "./components/customerprofile/customerprofile";
+import CompanyDeadstocks from "./components/companydeadstocks/companydeadstocks";
+import ProductOffers from "./components/customeroffers/customeroffers";
 function App() {
   return (
     <AuthProvider>
@@ -36,6 +38,8 @@ function App() {
             />
             <Route path="/customer/customercart" element={<CustomerCart />} />
             <Route path="/customer/customerorders" element={<MyOrdersPage />} />
+            
+            <Route path="/customer/offerssales" element={<ProductOffers />} />
           </Route>
           <Route path="/company/companypage" element={<CompanyPage />} />
           <Route path="/company/" element={<CompanyDash />} />
@@ -50,6 +54,7 @@ function App() {
             element={<ProductSalesPage />}
           />
           <Route path="/company/companyprofile" element={<CompanyProfile />} />
+          <Route path="/company/companydeadstocks" element={<CompanyDeadstocks/>} />
         </Routes>
       </Router>
       <ToastContainer />

@@ -85,7 +85,12 @@ function CustomerRegister() {
       if (data.user.user_metadata.role == "CompanyWorker") {
         console.log(data.user.email);
         axios
-          .post(" /companyemailreg", { email: data.user.email })
+          .post(" /companyemailreg", { 
+            email: data.user.email, 
+            city:data.user.user_metadata.city, 
+            address:data.user.user_metadata.address,
+            phone:data.user.user_metadata.phone 
+          })
           .then((response) => {
             console.log("registered employee", response.data);
           })
@@ -96,7 +101,12 @@ function CustomerRegister() {
       } else {
         console.log(data.user.email);
         axios
-          .post(" /customeremailreg", { email: data.user.email })
+          .post(" /customeremailreg", { 
+            email: data.user.email, 
+            city:data.user.user_metadata.city, 
+            address:data.user.user_metadata.address,
+            phone:data.user.user_metadata.phone
+          })
           .then((response) => {
             console.log("registered customer", response.data);
           })
@@ -178,7 +188,7 @@ function CustomerRegister() {
                 />
               </div>
               <div>
-                <label>Address</label>
+                <label>City</label>
                 <br />
                 <input
                   required

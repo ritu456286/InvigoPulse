@@ -1,24 +1,48 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./MyOrdersPage.css"; // Import CSS file
-import ResponsiveAppBarcust from "../navbar/navbarcust";
-import data from "../../json/customerOrders.json";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './MyOrdersPage.css'; // Import CSS file
+import ResponsiveAppBarcust from '../navbar/navbarcust';
+
 const MyOrdersPage = () => {
   const [orders, setOrders] = useState([]);
+  const [review, setReview] = useState('');
+  const email = sessionStorage.getItem('email');
 
   useEffect(() => {
     // Fetch data from /customerorders endpoint using Axios
-    // axios
-    //   .get("/customerorders")
-    //   .then((response) => {
-    //     // Update state with fetched data
-    //     setOrders(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching customer orders:", error);
-    //   });
-    setOrders(data);
+    axios
+      .get('/customerorders', {
+        params: {
+          email: email
+        }
+      })
+      .then(response => {
+        // Update state with fetched data
+        setOrders(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching customer orders:', error);
+      });
   }, []);
+
+  const handleReviewChange = (event, index) => {
+    const updatedOrders = [...orders];
+    updatedOrders[index].review = event.target.value;
+    setOrders(updatedOrders);
+  };
+
+  const handleSubmitReview = (index) => {
+    const updatedOrder = orders[index];
+    // Send updated order data to the backend
+    console.log(updatedOrder)
+    axios.post('/addeditreview', updatedOrder)
+      .then(response => {
+        console.log('Review added/edited successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error adding/editing review:', error);
+      });
+  };
 
   return (
     <>
@@ -49,6 +73,12 @@ const MyOrdersPage = () => {
                 <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
                   User Email
                 </th>
+                <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+                  Review 
+                </th>
+                <th className="px-6 py-6 text-left text-l font-medium uppercase tracking-wider">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -70,6 +100,21 @@ const MyOrdersPage = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {order.useremail}
                     </td>
+                    <td>
+                  {/* Display review text */}
+                  <input
+                    type="text"
+                    value={order.review || ''}
+                    onChange={(event) => handleReviewChange(event, index)}
+                    style={{ border: '1px solid #ccc', padding: '5px' }} // Add border style
+                  />
+                </td>
+                <td>
+                  {/* Add/Edit Review button */}
+                  <button onClick={() => handleSubmitReview(index)} className="text-white bg-red-800 hover:bg-red-700 px-3 py-2 rounded-md text-sm font-medium">
+                    Add/Edit Review
+                  </button>
+                </td>
                   </tr>
                   <tr className="line-row">
                     {" "}

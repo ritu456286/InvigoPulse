@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './product.css';
+
 import ResponsiveAppBarcust from '../navbar/navbarcust';
-const ProductSalesPage = () => {
+const ProductOffers = () => {
   const [productSales, setProductSales] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -12,7 +12,7 @@ const ProductSalesPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const email=sessionStorage.getItem("email");
   const fetchProductSalesData = () => {
-    axios.get('/productssales')
+    axios.get('/productsoffers')
       .then(response => {
         // Update state with fetched data
         console.log(response.data)
@@ -110,82 +110,62 @@ const ProductSalesPage = () => {
         setSearchResults(filteredData);
         setCurrentPage(1); // Reset to first page after filtering
     };
-  // const filteredProducts = productSales.filter(product => {
-  //   const descriptionMatch = product.Description.toLowerCase().includes(searchQuery.description.toLowerCase());
-  //   const brandMatch = product.Brand.toLowerCase().includes(searchQuery.brand.toLowerCase());
-  //   // const inventoryIdMatch = product.InventoryID.includes(searchQuery.inventoryId);
-  //   return descriptionMatch && brandMatch;
-  // });
-
-  // // Logic to get current items for current page
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
-
-  // const nextPage = () => {
-  //   setCurrentPage(currentPage + 1);
-  // };
-
-  // const prevPage = () => {
-  //   setCurrentPage(currentPage - 1);
-  // };
-
   return (
     <div className="py-10 text-center">
-      <ResponsiveAppBarcust />
-      <h2 className="text-5xl bold m-10">Product Sales</h2>
-      <form onSubmit={filterResults} className="m-6">
-        <input
-            type="text"
-            placeholder="Search by brand, description, etc."
-            value={searchTerm}
-            onChange={handleSearch}
-            list="search-suggestions"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
-        />
-        
-        
-        <datalist id="search-suggestions">
-        
-        
-            
-            {uniqueBrands.map((brand, index) => (
-                <option key={index} value={brand} />
-            ))}
-            {uniqueInventoryIds.map((id, index) => (
-                <option key={index} value={id} />
-            ))}
-            {uniqueDescriptions.map((description, index) => (
-                <option key={index} value={description} />
-            ))}
-            {uniqueSize.map((size, index) => (
-                <option key={index} value={size} />
-            ))}
-            {uniquecompanyname.map((name, index) => (
-                <option key={index} value={name} />
-            ))}
-            {uniqueCity.map((city, index) => (
-                <option key={index} value={city} />
-            ))}
-            {uniquePrice.map((price, index) => (
-                <option key={index} value={price} />
-            ))}
-            
-        </datalist>
-        <button type="submit" className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2 mt-3">Submit</button>
-    </form>
-    {showPopup && (
+    <ResponsiveAppBarcust />
+    <h2 className="text-5xl bold m-10">Offers and Sales</h2>
+    <form onSubmit={filterResults} className="m-6">
+      <input
+          type="text"
+          placeholder="Search by brand, description, etc."
+          value={searchTerm}
+          onChange={handleSearch}
+          list="search-suggestions"
+          className="border border-gray-300 rounded-md px-3 py-2 w-full"
+      />
+      
+      
+      <datalist id="search-suggestions">
+      
+      
+          
+          {uniqueBrands.map((brand, index) => (
+              <option key={index} value={brand} />
+          ))}
+          {uniqueInventoryIds.map((id, index) => (
+              <option key={index} value={id} />
+          ))}
+          {uniqueDescriptions.map((description, index) => (
+              <option key={index} value={description} />
+          ))}
+          {uniqueSize.map((size, index) => (
+              <option key={index} value={size} />
+          ))}
+          {uniquecompanyname.map((name, index) => (
+              <option key={index} value={name} />
+          ))}
+          {uniqueCity.map((city, index) => (
+              <option key={index} value={city} />
+          ))}
+          {uniquePrice.map((price, index) => (
+              <option key={index} value={price} />
+          ))}
+          
+      </datalist>
+      <button type="submit" className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2 mt-3">Submit</button>
+  </form>
+  {showPopup && (
         <div className="fixed bottom-0 right-0 bg-green-500 text-white p-2 rounded-tl-lg">
           Product added to cart successfully!
         </div>
       )}
       {/* Map over the currentItems array and render table rows */}
 
-      <div className="flex flex-col gap-6 ">
+      <div className="flex flex-col gap-6">
         {currentItems.map((product, index) => (
           <div
             key={index}
-            className="border border-gray-200 border-2 shadow-lg px-8 py-4 "
+            className="border border-gray-200 border-2 shadow-lg px-8 py-4"
             style={{ minWidth: '40vw' }}
           >
             <div className="flex justify-between items-end w-full">
@@ -280,4 +260,4 @@ const ProductSalesPage = () => {
   );
 };
 
-export default ProductSalesPage;
+export default ProductOffers;

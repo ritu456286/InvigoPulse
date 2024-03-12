@@ -12,11 +12,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import AdbIcon from "@mui/icons-material/Adb";
 import { AuthContext } from "../../cotexts/AuthContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
-const pages = ["Customer Sales", "Customer Orders", "Customer Cart"];
+const pages = ["Customer Sales", "Customer Orders", "Customer Cart", 'Offers Sales',];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function ResponsiveAppBarcust() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -53,6 +54,7 @@ function ResponsiveAppBarcust() {
     });
     navigate("/login");
   };
+  
   return (
     <nav className="flex backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 justify-evenly fixed px-5 right-0 left-0 top-0 mb-20 bg-white z-10">
       <div className="flex justify-between w-full">
@@ -69,6 +71,13 @@ function ResponsiveAppBarcust() {
             className="font-semibold py-3 hover:border-b-2 hover:border-red-600"
           >
             My Cart
+          </Link>
+          <Link
+            to="/customer/offerssales"
+            className="font-semibold py-3 hover:border-b-2 hover:border-red-600"
+          >
+            
+            Offers and Sales
           </Link>
           <Link
             to="/customer/customerorders"
