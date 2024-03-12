@@ -50,14 +50,14 @@ pool.query(createCartTableSQL, (err, results) => {
 
 // Handle POST request to /addcart
 app.post('/addcart', (req, res) => {
-  const { inventoryId, brand, Description, quantity, Price, City, companyemail } = req.body;
+  const {stockid, inventoryId, brand, Description, quantity, Price, City, companyemail,size } = req.body;
   const useremail = req.body.email;
 
   console.log(useremail) // Hardcoded for demonstration
   console.log(req.body)
   // Check if the product already exists in the cart
-  const checkIfExistsQuery = 'SELECT * FROM cart WHERE inventoryId = ? AND brand = ? AND Description = ? AND useremail = ? AND companyemail = ?';
-  const checkIfExistsValues = [inventoryId, brand, Description, useremail, companyemail];
+  const checkIfExistsQuery = 'SELECT * FROM cart WHERE inventoryId = ? AND brand = ? AND Description = ? AND useremail = ? AND companyemail = ? AND stockid = ?';
+  const checkIfExistsValues = [inventoryId, brand, Description, useremail, companyemail, stockid];
 
   pool.query(checkIfExistsQuery, checkIfExistsValues, (err, existingProduct) => {
     if (err) {
@@ -68,8 +68,8 @@ app.post('/addcart', (req, res) => {
     if (existingProduct.length > 0) {
       // If the product already exists, update its quantity
       const updatedQuantity = quantity;
-      const updateQuery = 'UPDATE cart SET quantity = ? WHERE inventoryId = ? AND brand = ? AND Description = ? AND useremail = ? AND companyemail = ?';
-      const updateValues = [updatedQuantity, inventoryId, brand, Description, useremail, companyemail];
+      const updateQuery = 'UPDATE cart SET quantity = ? WHERE inventoryId = ? AND brand = ? AND Description = ? AND useremail = ? AND companyemail = ? AND stockid = ?';
+      const updateValues = [updatedQuantity, inventoryId, brand, Description, useremail, companyemail, stockid];
 
       pool.query(updateQuery, updateValues, (updateErr, updateResult) => {
         if (updateErr) {
@@ -81,8 +81,8 @@ app.post('/addcart', (req, res) => {
       });
     } else {
       // If the product does not exist, insert it into the cart
-      const insertQuery = 'INSERT INTO cart (inventoryId, brand, Description, quantity, useremail, city, price, companyemail) VALUES (?, ?, ?, ?, ?,?,?, ?)';
-      const insertValues = [inventoryId, brand, Description, quantity, useremail, City, Price, companyemail];
+      const insertQuery = 'INSERT INTO cart (inventoryId, brand, Description, quantity, useremail, city, price, companyemail, stockid, size) VALUES (?, ?, ?, ?, ?,?,?, ?,?,?)';
+      const insertValues = [inventoryId, brand, Description, quantity, useremail, City, Price, companyemail,stockid, size];
 
       pool.query(insertQuery, insertValues, (insertErr, insertResult) => {
         if (insertErr) {
@@ -97,14 +97,14 @@ app.post('/addcart', (req, res) => {
 });
 
 app.post('/companyemailreg', (req, res) => {
-  const { email } = req.body;
+  const { email,city,phone,address } = req.body;
   const email1= `"${email}"`;
   // const singleQuotedDoubleQuotedEmail = `'${doubleQuotedEmail}'`;
   console.log(email1);
   // const email1=``${email}``
   // Insert the email into the Company table
-  const sql = 'INSERT INTO Company (email) VALUES (?)';
-  connection.query(sql, [email1], (err, result) => {
+  const sql = 'INSERT INTO Company (email,city,address,phoneNumber) VALUES (?,?,?,?)';
+  connection.query(sql, [email1,city,address,phone], (err, result) => {
     if (err) {
       console.error('Error inserting email into Company table:', err);
       res.status(500).send('Error inserting email into Company table');
@@ -209,13 +209,13 @@ app.post('/updatecompanyprofile', async (req, res) => {
 });
 
 app.post('/customeremailreg', (req, res) => {
-  const { email } = req.body;
+  const { email, city, address, phone } = req.body;
   const email1= `"${email}"`;
   // const singleQuotedDoubleQuotedEmail = `'${doubleQuotedEmail}'`;
   console.log(email1);
   // Insert the email into the customer table
-  const sql = 'INSERT INTO customer (email) VALUES (?)';
-  connection.query(sql, [email1], (err, result) => {
+  const sql = 'INSERT INTO customer (email,phone,city,address) VALUES (?,?,?,?)';
+  connection.query(sql, [email1,phone,city,address], (err, result) => {
     if (err) {
       console.error('Error inserting email into customer table:', err);
       res.status(500).send('Error inserting email into customer table');
@@ -234,7 +234,8 @@ app.get('/customercart', (req, res) => {
 
   // Query to fetch unique cart data with price and quantity
   const query = `
-  SELECT DISTINCT 
+  SELECT 
+  c.stockid, 
   c.id, 
   c.inventoryId, 
   c.brand, 
@@ -242,19 +243,17 @@ app.get('/customercart', (req, res) => {
   c.quantity, 
   c.city, 
   c.companyemail, 
+  c.size,
   co.companyName, 
-  p.Price, 
-  p.Size
+  c.Price
 FROM 
   cart AS c
-LEFT JOIN 
-  purchaseprices AS p ON c.brand = p.brand AND c.Description = p.Description
-LEFT JOIN 
-  purchasefinal AS f ON c.inventoryId = f.InventoryId AND c.brand = f.Brand AND c.Description = f.Description
+
 LEFT JOIN 
   company AS co ON c.companyemail = co.email
 WHERE 
-  c.useremail = ?
+  c.useremail = ?;
+
 
   `;
   const values = [useremail];
@@ -272,14 +271,14 @@ WHERE
 });
 
 app.post('/customerdeleteitem', (req, res) => {
-  const { brand, Description, inventoryId, quantity, companyemail } = req.body;
+  const { brand, Description, inventoryId, quantity, companyemail, stockid } = req.body;
   const useremail = req.body.email;
   console.log(req.body)
   console.log(useremail) // Hardcoded for demonstration
 
   // Delete the item from the cart table
-  const sql = 'DELETE FROM cart WHERE brand = ? AND Description = ? AND inventoryId = ? AND quantity = ? AND useremail = ? And companyemail = ? ';
-  const values = [brand, Description, inventoryId, quantity, useremail, companyemail];
+  const sql = 'DELETE FROM cart WHERE brand = ? AND Description = ? AND inventoryId = ? AND quantity = ? AND useremail = ? And companyemail = ? And stockid = ? ';
+  const values = [brand, Description, inventoryId, quantity, useremail, companyemail, stockid];
 
   // Execute the SQL query
   pool.query(sql, values, (err, results) => {
@@ -302,16 +301,17 @@ app.post('/updateinventory', (req, res) => {
     PurchasePrice,
     Quantity,
     Dollars,
-    Price
+    Price,
+    stockid
   } = req.body.editableItems;
   const email = req.body.email;
 
   // Update purchasefinal table
-  const updatePurchaseFinalQuery = `UPDATE purchasefinal SET InventoryId = ?, Brand = ?, Description = ?, Size = ?, PONumber = ?, PurchasePrice = ?, Quantity = ?, Dollars = ? WHERE InventoryId = ? AND Brand = ? AND Description = ? And companyemail=?`;
+  const updatePurchaseFinalQuery = `UPDATE purchasefinal SET InventoryId = ?, Brand = ?, Description = ?, Size = ?, PONumber = ?, PurchasePrice = ?, Quantity = ?, Dollars = ?, Price=? WHERE InventoryId = ? AND Brand = ? AND Description = ? And companyemail=? And PONumber=? And stockid=?`;
 
   connection.query(
     updatePurchaseFinalQuery,
-    [InventoryId, Brand, Description, Size, PONumber, PurchasePrice, Quantity, Dollars, InventoryId, Brand, Description, email],
+    [InventoryId, Brand, Description, Size, PONumber, PurchasePrice, Quantity, Dollars,Price, InventoryId, Brand, Description, email, PONumber, stockid],
     (err, result) => {
       if (err) {
         console.error('Error updating purchasefinal table:', err);
@@ -323,31 +323,48 @@ app.post('/updateinventory', (req, res) => {
   );
 
   // Update purchaseprice table
-  const updatePurchasePriceQuery = `UPDATE purchaseprices SET Brand = ?, Description = ?, Price = ? WHERE Brand = ? AND Description = ?`;
+  // const updatePurchasePriceQuery = `UPDATE purchaseprices SET Brand = ?, Description = ?, Price = ? WHERE Brand = ? AND Description = ?`;
 
-  connection.query(
-    updatePurchasePriceQuery,
-    [Brand, Description, Price, Brand, Description],
-    (err, result) => {
-      if (err) {
-        console.error('Error updating purchaseprice table:', err);
-        res.status(500).json({ error: 'Error updating purchaseprice table' });
-        return;
-      }
-      console.log('Updated purchaseprice table:', result.affectedRows);
-    }
-  );
+  // connection.query(
+  //   updatePurchasePriceQuery,
+  //   [Brand, Description, Price, Brand, Description],
+  //   (err, result) => {
+  //     if (err) {
+  //       console.error('Error updating purchaseprice table:', err);
+  //       res.status(500).json({ error: 'Error updating purchaseprice table' });
+  //       return;
+  //     }
+  //     console.log('Updated purchaseprice table:', result.affectedRows);
+  //   }
+  // );
 
   res.status(200).json({ message: 'Update successful' });
 });
+
+app.post('/inventoryaddtosale', (req, res) => {
+  const {stockid} = req.body.item;
+  console.log(stockid)
+  const sql = 'UPDATE purchasefinal SET addtosale = ? WHERE stockid = ?';
+
+  connection.query(sql, ['Yes', stockid], (err, result) => {
+    if (err) {
+      console.error('Error updating addtosale column: ' + err.message);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    console.log('Rows updated: ' + result.affectedRows);
+    res.send('addtosale column updated for stock id ' + stockid);
+  });
+});
+
 app.post('/inventorydelete', (req, res) => {
-  const { InventoryId, Brand, Description, PONumber } = req.body.item;
+  const { InventoryId, Brand, Description, PONumber, stockid } = req.body.item;
   const email = req.body.email;
   console.log(email);
 
   // Delete from purchasefinal table
-  const deletePurchaseFinalQuery = `DELETE FROM purchasefinal WHERE InventoryId = ? AND Brand = ? AND Description = ? AND PONumber = ? AND companyemail = ?`;
-  connection.query(deletePurchaseFinalQuery, [InventoryId, Brand, Description, PONumber, email], (err, result) => {
+  const deletePurchaseFinalQuery = `DELETE FROM purchasefinal WHERE InventoryId = ? AND Brand = ? AND Description = ? AND PONumber = ? AND companyemail = ? AND stockid = ?`;
+  connection.query(deletePurchaseFinalQuery, [InventoryId, Brand, Description, PONumber, email, stockid], (err, result) => {
     if (err) {
       console.error('Error deleting from purchasefinal table:', err);
       res.status(500).json({ error: 'Error deleting from purchasefinal table' });
@@ -370,18 +387,19 @@ app.post('/inventorydelete', (req, res) => {
   res.status(200).json({ message: 'Deletion successful' });
 });
 app.post('/customercheckout', (req, res) => {
-  const { brand, Description, inventoryId, quantity, Size, Price, companyemail } = req.body;
+  const { brand, Description, inventoryId, quantity, size, Price, companyemail, stockid } = req.body;
   const useremail = req.body.email;
-  console.log(useremail) // Hardcoded for demonstration
-  console.log(req.body);
+
+  // Generate a unique orderid based on current datetime
+  const orderId = Date.now();
 
   // Get today's date
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
 
   // Decrease the quantity in the purchasefinal table
-  const updateSql = 'UPDATE purchasefinal SET quantity = Quantity - ? WHERE Brand = ? AND Description = ? AND InventoryId = ? AND companyemail = ?';
-  const updateValues = [quantity, brand, Description, inventoryId, companyemail];
+  const updateSql = 'UPDATE purchasefinal SET quantity = Quantity - ? WHERE Brand = ? AND Description = ? AND InventoryId = ? AND companyemail = ? AND stockid = ?';
+  const updateValues = [quantity, brand, Description, inventoryId, companyemail, stockid];
 
   // Execute the update SQL query
   pool.query(updateSql, updateValues, (updateErr, updateResults) => {
@@ -392,8 +410,8 @@ app.post('/customercheckout', (req, res) => {
       console.log('Quantity updated in purchasefinal table');
 
       // Delete the item from the cart table
-      const deleteSql = 'DELETE FROM cart WHERE brand = ? AND Description = ? AND inventoryId = ? AND quantity = ? AND useremail = ? AND companyemail = ?';
-      const deleteValues = [brand, Description, inventoryId, quantity, useremail, companyemail];
+      const deleteSql = 'DELETE FROM cart WHERE brand = ? AND Description = ? AND inventoryId = ? AND quantity = ? AND useremail = ? AND companyemail = ? AND stockid = ?';
+      const deleteValues = [brand, Description, inventoryId, quantity, useremail, companyemail, stockid];
 
       // Execute the delete SQL query
       pool.query(deleteSql, deleteValues, (deleteErr, deleteResults) => {
@@ -403,21 +421,21 @@ app.post('/customercheckout', (req, res) => {
         } else {
           console.log('Item deleted from cart successfully');
 
-          // Insert the item into the orders table
-          const insertSql = 'INSERT INTO orders (inventoryId, brand, Description, quantity, useremail, companyemail) VALUES (?, ?, ?, ?, ?, ?)';
-          const insertValues = [inventoryId, brand, Description, quantity, useremail, companyemail];
+          // Insert the item into the orders table with the generated orderid
+          const insertOrderSql = 'INSERT INTO orders (orderid, inventoryId, brand, Description, quantity, useremail, companyemail, stockid, size, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+          const insertOrderValues = [orderId, inventoryId, brand, Description, quantity, useremail, companyemail, stockid, size, formattedDate];
 
-          // Execute the insert SQL query
-          pool.query(insertSql, insertValues, (insertErr, insertResults) => {
-            if (insertErr) {
-              console.error('Error inserting item into orders:', insertErr);
+          // Execute the insert SQL query for orders
+          pool.query(insertOrderSql, insertOrderValues, (insertOrderErr, insertOrderResults) => {
+            if (insertOrderErr) {
+              console.error('Error inserting item into orders:', insertOrderErr);
               res.status(500).json({ error: 'Internal Server Error' });
             } else {
               console.log('Item inserted into orders successfully');
 
-              // Insert sales data into the sales table
-              const salesInsertSql = 'INSERT INTO sales (InventoryId, Brand, Description, Size, SalesQuantity, SalesDollars, SalesPrice, customeremail, companyemail, SalesDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-              const salesInsertValues = [inventoryId, brand, Description, Size, quantity, quantity * Price, Price, useremail, companyemail, formattedDate];
+              // Insert sales data into the sales table with the same orderid
+              const salesInsertSql = 'INSERT INTO sales (InventoryId, Brand, Description, Size, SalesQuantity, SalesDollars, SalesPrice, customeremail, companyemail, SalesDate, orderid, stockid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+              const salesInsertValues = [inventoryId, brand, Description, size, quantity, quantity * Price, Price, useremail, companyemail, formattedDate, orderId, stockid];
 
               // Execute the sales insert SQL query
               pool.query(salesInsertSql, salesInsertValues, (salesInsertErr, salesInsertResults) => {
@@ -436,6 +454,7 @@ app.post('/customercheckout', (req, res) => {
     }
   });
 });
+
 
 
 app.get('/customerorders', (req, res) => {
@@ -482,14 +501,14 @@ app.post('/addstock', async (req, res) => {
     await beginTransaction();
 
     // Insert into purchaseprices table
-    const purchasePricesId = await insertIntoPurchasePrices(Brand, Description, PurchasePrice, Size, Price, email);
+    // const purchasePricesId = await insertIntoPurchasePrices(Brand, Description, PurchasePrice, Size, Price, email);
     // Insert into purchaseinvoice table
     const purchaseInvoiceId = await insertIntoPurchaseInvoice(PONumber, PODate, Quantity, Dollars, expirydate, email); // Pass expirydate here
 
     await insertIntoCity(InventoryId, City); // Insert City for InventoryId
 
     // Insert into purchasefinal table
-    await insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email);
+    await insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price);
 
     // Commit transaction
     await commitTransaction();
@@ -629,9 +648,9 @@ function insertIntoPurchaseInvoice(PONumber, PODate, Quantity, Dollars, expiryda
 
 
 // Function to insert into purchasefinal table
-function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email) {
+function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price) {
   return new Promise((resolve, reject) => {
-    pool.query('INSERT INTO purchasefinal (InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, companyemail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)', [InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email], (err, result) => {
+    pool.query('INSERT INTO purchasefinal (InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, companyemail, Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)', [InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price], (err, result) => {
       if (err) {
         console.error('Error inserting into purchasefinal:', err);
         reject(err);
@@ -646,32 +665,46 @@ function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber
 app.get('/dashboardcompany', async (req, res) => {
   try {
     const email = req.query.email;
+
+    // Query to fetch total unique products
     const countQuery = `SELECT COUNT(DISTINCT Brand, Description) AS count FROM PurchaseFinal WHERE companyemail = '${email}'`;
+
+    // Query to fetch total sales
     const salesQuery = `SELECT SUM(SalesDollars) AS total_sales FROM Sales WHERE companyemail = '${email}'`;
+
+    // Query to fetch total profit
     const profitQuery = `
       SELECT SUM((s.SalesDollars / s.SalesPrice) * (s.SalesPrice - p.PurchasePrice)) AS total_profit
       FROM Sales s
-      JOIN PurchasePrices p ON s.Brand = p.Brand AND s.Description = p.Description
+      JOIN PurchaseFinal p ON s.Brand = p.Brand AND s.Description = p.Description AND s.stockid = p.stockid
       WHERE s.companyemail = '${email}'
     `;
+
+    // Query to fetch brand-wise sales
     const brandVsSalesQuery = `
       SELECT Brand, SUM(SalesDollars) AS total_sales
       FROM Sales
       WHERE companyemail = '${email}'
       GROUP BY Brand
     `;
+
+    // Query to fetch inventory-wise sales
     const inventoryVsSalesQuery = `
       SELECT InventoryId, SUM(SalesDollars) AS total_sales
       FROM Sales
       WHERE companyemail = '${email}'
       GROUP BY InventoryId
     `;
+
+    // Query to fetch sales vs date
     const salesVsDateQuery = `
       SELECT SalesDate, SUM(SalesDollars) AS total_sales
       FROM Sales
       WHERE companyemail = '${email}'
       GROUP BY SalesDate
     `;
+
+    // Query to fetch city-wise sales
     const cityVsSalesQuery = `
       SELECT c.City, SUM(s.SalesDollars) AS total_sales
       FROM city c
@@ -679,6 +712,8 @@ app.get('/dashboardcompany', async (req, res) => {
       WHERE s.companyemail = '${email}'
       GROUP BY c.City
     `;
+
+    // Query to fetch city-wise quantity
     const cityVsQuantityQuery = `
       SELECT c.City, SUM(pf.Quantity) AS total_quantity
       FROM city c
@@ -687,7 +722,43 @@ app.get('/dashboardcompany', async (req, res) => {
       GROUP BY c.City
     `;
 
-    const [countResult, salesResult, profitResult, brandVsSalesResult, inventoryVsSalesResult, salesVsDateResult, cityVsSalesResult, cityVsQuantityResult] = await Promise.all([
+    // Query to fetch stock expiry data
+    const stockExpiryQuery = `
+      SELECT expirydate, PONumber, Quantity
+      FROM purchaseinvoice
+      WHERE companyemail = '${email}'
+    `;
+
+    // Query to fetch reviews from sales
+    const reviewsQuery = `
+      SELECT customeremail, orderid, review
+      FROM Sales
+      WHERE companyemail = '${email}' AND review IS NOT NULL
+    `;
+
+    // Query to fetch recent 5 sales according to date
+    const recentSalesQuery = `
+      SELECT customeremail, Brand, SalesDate, Description, Size
+      FROM Sales
+      WHERE companyemail = '${email}'
+      ORDER BY SalesDate DESC
+      LIMIT 5
+    `;
+
+    // Execute all queries in parallel
+    const [
+      countResult,
+      salesResult,
+      profitResult,
+      brandVsSalesResult,
+      inventoryVsSalesResult,
+      salesVsDateResult,
+      cityVsSalesResult,
+      cityVsQuantityResult,
+      stockExpiryResult,
+      reviewsResult,
+      recentSalesResult
+    ] = await Promise.all([
       executeQuery(countQuery),
       executeQuery(salesQuery),
       executeQuery(profitQuery),
@@ -695,9 +766,13 @@ app.get('/dashboardcompany', async (req, res) => {
       executeQuery(inventoryVsSalesQuery),
       executeQuery(salesVsDateQuery),
       executeQuery(cityVsSalesQuery),
-      executeQuery(cityVsQuantityQuery)
+      executeQuery(cityVsQuantityQuery),
+      executeQuery(stockExpiryQuery),
+      executeQuery(reviewsQuery),
+      executeQuery(recentSalesQuery)
     ]);
 
+    // Process and format query results as needed
     const totalUniqueProducts = countResult[0].count;
     const totalSales = salesResult[0].total_sales;
     const totalProfit = profitResult[0].total_profit;
@@ -721,6 +796,26 @@ app.get('/dashboardcompany', async (req, res) => {
     cityVsQuantityResult.forEach((row) => {
       cityVsQuantity[row.City] = row.total_quantity;
     });
+    const stockExpiryData = stockExpiryResult.map(row => ({
+      expiryDate: row.expirydate,
+      PONumber: row.PONumber,
+      Quantity: row.Quantity
+    }));
+    const reviews = reviewsResult.map(row => ({
+      customerEmail: row.customeremail,
+      orderid: row.orderid,
+      review: row.review
+    }));
+    const recentSales = recentSalesResult.map(row => ({
+      customerEmail: row.customeremail,
+      orderId: row.orderid,
+      salesDate: row.SalesDate,
+      Brand: row.Brand,
+      Description:row.Description,
+      Quantity:row.Size,
+    }));
+
+    // Send the formatted data as JSON response
     res.json({
       total_unique_products: totalUniqueProducts,
       total_sales: totalSales,
@@ -729,7 +824,10 @@ app.get('/dashboardcompany', async (req, res) => {
       inventory_vs_sales: inventoryVsSales,
       sales_vs_date: salesVsDate,
       city_vs_sales: cityVsSales,
-      city_vs_quantity: cityVsQuantity
+      city_vs_quantity: cityVsQuantity,
+      stock_expiry: stockExpiryData,
+      reviews: reviews,
+      recent_sales: recentSales
     });
   } catch (error) {
     console.error('Error querying database: ' + error.stack);
@@ -737,17 +835,18 @@ app.get('/dashboardcompany', async (req, res) => {
   }
 });
 
+
 app.get('/companywarehouse', async (req, res) => {
   const email = req.query.email;
   console.log(email);
   try {
     const companyWarehouseQuery = `
-    SELECT DISTINCT pf.InventoryId, pf.Brand, pf.Description, pf.Size, pf.PONumber, pf.PurchasePrice, pf.Quantity, pf.companyemail, pf.Dollars, pp.Price, pi.expirydate, pi.PODate, c.City
+    SELECT DISTINCT pf.addtosale, pf.InventoryId, pf.Brand, pf.Description, pf.Size, pf.PONumber, pf.PurchasePrice, pf.Quantity, pf.companyemail, pf.Dollars, pf.Price,pf.stockid, pi.expirydate, pi.PODate, c.City
 FROM PurchaseFinal pf
-LEFT JOIN PurchasePrices pp ON pf.Brand = pp.Brand AND pf.Description = pp.Description AND pf.companyemail = pp.companyemail
+
 LEFT JOIN purchaseinvoice pi ON pf.PONumber = pi.PONumber AND pf.companyemail = pi.companyemail
 LEFT JOIN city c ON pf.InventoryId = c.InventoryId
-WHERE pf.companyemail = '${email}';
+WHERE pf.companyemail = '${email}' And pf.Quantity>=0;
 `;
 
     const companyWarehouseResult = await executeQuery(companyWarehouseQuery);
@@ -764,7 +863,7 @@ app.get('/companysales', async (req, res) => {
   try {
     const email = req.query.email;
     const extractQuery = `
-      SELECT InventoryId, Brand, Description, Size, SalesQuantity, SalesDollars, SalesPrice, SalesDate,  customeremail 
+      SELECT InventoryId, Brand, Description, Size, SalesQuantity, SalesDollars, SalesPrice, SalesDate,  customeremail, review 
       FROM Sales
       WHERE companyemail = '${email}'
     `;
@@ -812,29 +911,33 @@ app.get('/productssales', (req, res) => {
   // Query to fetch InventoryID, Brand, Description, Size, and total Quantity from purchasefinal and PurchasePrice from purchaseprices tables
   const query = `
   SELECT 
+    
     pf.InventoryID, 
     pf.Brand, 
     pf.Description, 
     pf.Size, 
-    pp.Price, 
+    pf.Price, 
     SUM(pf.Quantity) as TotalQuantity, 
     c.City, 
     pf.companyemail,
-    co.companyname
+    co.companyname,
+    pf.stockid
 FROM 
     purchasefinal pf
-INNER JOIN 
-    purchaseprices pp ON pf.Brand = pp.Brand AND pf.Description = pp.Description
+
 LEFT JOIN 
     city c ON pf.InventoryID = c.InventoryID
 LEFT JOIN 
     company co ON pf.companyemail = co.email
+WHERE 
+    pf.Quantity > 0
 GROUP BY 
+pf.stockid,
     pf.InventoryID, 
     pf.Brand, 
     pf.Description, 
     pf.Size, 
-    pp.Price, 
+    pf.Price, 
     c.City, 
     pf.companyemail,
     co.companyname;
@@ -851,6 +954,79 @@ GROUP BY
     }
     // If query is successful, return the results as JSON
     res.json(results);
+  });
+});
+
+app.get('/productsoffers', (req, res) => {
+  // Query to fetch InventoryID, Brand, Description, Size, and total Quantity from purchasefinal and PurchasePrice from purchaseprices tables
+  const query = `
+  SELECT 
+    pf.InventoryID, 
+    pf.Brand, 
+    pf.Description, 
+    pf.Size, 
+    pf.Price, 
+    SUM(pf.Quantity) as TotalQuantity, 
+    c.City, 
+    pf.companyemail,
+    co.companyname,
+    pf.stockid
+  FROM 
+    purchasefinal pf
+  LEFT JOIN 
+    city c ON pf.InventoryID = c.InventoryID
+  LEFT JOIN 
+    company co ON pf.companyemail = co.email
+  WHERE 
+    pf.addtosale = 'Yes' AND pf.Quantity > 0
+  GROUP BY 
+    pf.stockid,
+    pf.InventoryID, 
+    pf.Brand, 
+    pf.Description, 
+    pf.Size, 
+    pf.Price, 
+    c.City, 
+    pf.companyemail,
+    co.companyname;
+  `;
+
+  // Execute the query
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching product offers data:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+    // If query is successful, return the results as JSON
+    res.json(results);
+  });
+});
+
+app.post('/addeditreview', (req, res) => {
+  const { orderid, review } = req.body;
+
+  // Update review in the orders table
+  const updateOrderSql = 'UPDATE orders SET review = ? WHERE orderid = ?';
+  pool.query(updateOrderSql, [review, orderid], (updateOrderErr, updateOrderResults) => {
+    if (updateOrderErr) {
+      console.error('Error updating review in orders table:', updateOrderErr);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+
+    // Update review in the sales table
+    const updateSalesSql = 'UPDATE sales SET review = ? WHERE orderid = ?';
+    pool.query(updateSalesSql, [review, orderid], (updateSalesErr, updateSalesResults) => {
+      if (updateSalesErr) {
+        console.error('Error updating review in sales table:', updateSalesErr);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+
+      console.log('Review updated successfully');
+      res.json({ message: 'Review updated successfully' });
+    });
   });
 });
 
