@@ -88,9 +88,8 @@ function Homepage() {
         >
           <div className="flex justify-center items-start flex-col opacity-80 bg-black absolute z-10  w-full top-0 left-0  h-screen px-12 pt-12">
             <h1 className="text-white text-5xl font-bold min-w-max leading-tight">
-              Quench your thirst <br />
-              with just a click, because <br /> every sip deserves a perfect
-              pick!
+              Introducing InvigoPulse <br />
+              your all-in-one solution for <br /> Inventory and Deadstock Management!
             </h1>
             <p className="text-white max-w-3xl tracking-wide text-start font-light  leading-tight my-4 text-m">
               Welcome to our online drinks store, where every pour tells a story
