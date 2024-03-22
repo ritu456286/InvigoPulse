@@ -479,7 +479,7 @@ app.get('/customerorders', (req, res) => {
 
 
 app.post('/addstock', async (req, res) => {
-  const {
+  var {
     email,
     InventoryId,
     Brand,
@@ -495,20 +495,24 @@ app.post('/addstock', async (req, res) => {
     expirydate // New field for expirydate
   } = req.body.formData;
   // const email = req.body.email;
+
+  
+
   console.log(req.body);
   try {
     // Start transaction
     await beginTransaction();
-
+    expirydate=expirydate.toString().slice(0, 19).replace('T', ' ');
+    PODate = PODate.toString().slice(0, 19).replace('T', ' ');
     // Insert into purchaseprices table
     // const purchasePricesId = await insertIntoPurchasePrices(Brand, Description, PurchasePrice, Size, Price, email);
     // Insert into purchaseinvoice table
-    const purchaseInvoiceId = await insertIntoPurchaseInvoice(PONumber, PODate, Quantity, Dollars, expirydate, email); // Pass expirydate here
+    // const purchaseInvoiceId = await insertIntoPurchaseInvoice(PONumber, PODate, Quantity, Dollars, expirydate, email); // Pass expirydate here
 
     await insertIntoCity(InventoryId, City); // Insert City for InventoryId
 
     // Insert into purchasefinal table
-    await insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price);
+    await insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price,expirydate);
 
     // Commit transaction
     await commitTransaction();
@@ -648,9 +652,9 @@ function insertIntoPurchaseInvoice(PONumber, PODate, Quantity, Dollars, expiryda
 
 
 // Function to insert into purchasefinal table
-function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price) {
+function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price,expirydate) {
   return new Promise((resolve, reject) => {
-    pool.query('INSERT INTO purchasefinal (InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, companyemail, Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)', [InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price], (err, result) => {
+    pool.query('INSERT INTO purchasefinal (InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, companyemail, Price, expirydate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, ?)', [InventoryId, Brand, Description, Size, PONumber, PODate, PurchasePrice, Quantity, Dollars, email, Price, expirydate], (err, result) => {
       if (err) {
         console.error('Error inserting into purchasefinal:', err);
         reject(err);
@@ -665,7 +669,9 @@ function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber
 app.get('/dashboardcompany', async (req, res) => {
   try {
     const email = req.query.email;
-
+    console.log("ll")
+    console.log(email);
+    
     // Query to fetch total unique products
     const countQuery = `SELECT COUNT(DISTINCT Brand, Description) AS count FROM PurchaseFinal WHERE companyemail = '${email}'`;
 
@@ -724,9 +730,9 @@ app.get('/dashboardcompany', async (req, res) => {
 
     // Query to fetch stock expiry data
     const stockExpiryQuery = `
-      SELECT expirydate, PONumber, Quantity
-      FROM purchaseinvoice
-      WHERE companyemail = '${email}'
+      SELECT expirydate, stockid, Quantity
+      FROM purchasefinal
+      WHERE companyemail = '${email}' AND Quantity > 0
     `;
 
     // Query to fetch reviews from sales
@@ -798,7 +804,7 @@ app.get('/dashboardcompany', async (req, res) => {
     });
     const stockExpiryData = stockExpiryResult.map(row => ({
       expiryDate: row.expirydate,
-      PONumber: row.PONumber,
+      stockid: row.stockid,
       Quantity: row.Quantity
     }));
     const reviews = reviewsResult.map(row => ({
@@ -841,10 +847,10 @@ app.get('/companywarehouse', async (req, res) => {
   console.log(email);
   try {
     const companyWarehouseQuery = `
-    SELECT DISTINCT pf.addtosale, pf.InventoryId, pf.Brand, pf.Description, pf.Size, pf.PONumber, pf.PurchasePrice, pf.Quantity, pf.companyemail, pf.Dollars, pf.Price,pf.stockid, pi.expirydate, pi.PODate, c.City
+    SELECT DISTINCT pf.addtosale, pf.InventoryId, pf.Brand, pf.Description, pf.Size, pf.PONumber, pf.PurchasePrice, pf.Quantity, pf.companyemail, pf.Dollars, pf.Price,pf.stockid, pf.expirydate, pf.PODate,pf.stockid, c.City
 FROM PurchaseFinal pf
 
-LEFT JOIN purchaseinvoice pi ON pf.PONumber = pi.PONumber AND pf.companyemail = pi.companyemail
+
 LEFT JOIN city c ON pf.InventoryId = c.InventoryId
 WHERE pf.companyemail = '${email}' And pf.Quantity>=0;
 `;

@@ -1,0 +1,51 @@
+inventoryId,brand,Description,quantity,useremail,companyemail,stockid,size,review,date,orderid
+70_KELD_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,1
+7_STANMORE_1004,1004,"Jim Beam w/2 Rocks Glasses",4,123@gmail.com,NULL,NULL,NULL,NULL,NULL,2
+7_STANMORE_1004,1004,"Jim Beam w/2 Rocks Glasses",4,123@gmail.com,NULL,NULL,NULL,NULL,NULL,3
+7_STANMORE_1004,1004,"Jim Beam w/2 Rocks Glasses",4,123@gmail.com,NULL,NULL,NULL,NULL,NULL,4
+33_HORNSEY_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,5
+74_PAENTMARWY_1004,1004,"Jim Beam w/2 Rocks Glasses",15,123@gmail.com,NULL,NULL,NULL,NULL,NULL,6
+74_PAENTMARWY_1004,1004,"Jim Beam w/2 Rocks Glasses",17,123@gmail.com,NULL,NULL,NULL,NULL,NULL,7
+74_PAENTMARWY_1004,1004,"Jim Beam w/2 Rocks Glasses",-14,123@gmail.com,NULL,NULL,NULL,NULL,NULL,8
+7_STANMORE_1004,1004,"Jim Beam w/2 Rocks Glasses",7,123@gmail.com,NULL,NULL,NULL,NULL,NULL,9
+54_GUTHRAM_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,10
+54_GUTHRAM_1004,1004,"Jim Beam w/2 Rocks Glasses",6,123@gmail.com,NULL,NULL,NULL,NULL,NULL,11
+79_BALLYMENA_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,12
+79_BALLYMENA_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,13
+79_BALLYMENA_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,14
+79_BALLYMENA_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,15
+79_BALLYMENA_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,16
+79_BALLYMENA_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,17
+69_MOUNTMEND_1004,1004,"Jim Beam w/2 Rocks Glasses",1,123@gmail.com,NULL,NULL,NULL,NULL,NULL,18
+57_LANTEGLOS_1004,1004,"Jim Beam w/2 Rocks Glasses",1,123@gmail.com,NULL,NULL,NULL,NULL,NULL,19
+37_PAETHSMOUTH_10058,10058,"F Coppola Dmd Ivry Cab Svgn",1,123@gmail.com,NULL,NULL,NULL,NULL,NULL,20
+inventory123,"Imperial Blue",Whisky,2,123@gmail.com,NULL,NULL,NULL,NULL,NULL,21
+25_CAERSHIRE_1004,1004,"Jim Beam w/2 Rocks Glasses",2,123@gmail.com,NULL,NULL,NULL,NULL,NULL,22
+32_MOUNTMEND_1004,1004,"Jim Beam w/2 Rocks Glasses",2,123@gmail.com,NULL,NULL,NULL,NULL,NULL,23
+74_PAENTMARWY_1004,1004,"Jim Beam w/2 Rocks Glasses",3,123@gmail.com,NULL,NULL,NULL,NULL,NULL,24
+74_PAENTMARWY_1004,1004,"Jim Beam w/2 Rocks Glasses",1,123@gmail.com,NULL,NULL,NULL,NULL,NULL,25
+22_SHARNWICK_10874,10874,"Cantine Maschio Prosecco Brt",2,123@gmail.com,NULL,NULL,NULL,NULL,NULL,26
+22_SHARNWICK_10874,10874,"Cantine Maschio Prosecco Brt",2,NULL,NULL,NULL,NULL,NULL,NULL,27
+6_GOULCREST_10874,10874,"Cantine Maschio Prosecco Brt",2,NULL,NULL,NULL,NULL,NULL,NULL,28
+22_SHARNWICK_10874,10874,"Cantine Maschio Prosecco Brt",2,""12@gmail.com"",NULL,NULL,NULL,NULL,NULL,29
+32_MOUNTMEND_10874,10874,"Cantine Maschio Prosecco Brt",1,""12@gmail.com"",NULL,NULL,NULL,NULL,NULL,30
+32_MOUNTMEND_10874,10874,"Cantine Maschio Prosecco Brt",1,""12@gmail.com"",NULL,NULL,NULL,NULL,NULL,31
+6_GOULCREST_10874,10874,"Cantine Maschio Prosecco Brt",2,""12@gmail.com"",NULL,NULL,NULL,NULL,NULL,32
+54_GUTHRAM_1004,1004,"Jim Beam w/2 Rocks Glasses",1,""qq@gmail.com"",""ww@employee.ac.in"",NULL,NULL,NULL,NULL,33
+53_HILLFAR_1004,1004,"Jim Beam w/2 Rocks Glasses",1,""qq@gmail.com"",""ww@employee.ac.in"",NULL,NULL,NULL,NULL,34
+inventory22,BACARDIII,RUMMM,2,""qq@gmail.com"",""inv@employee.ac.in"",NULL,NULL,NULL,NULL,35
+6_GOULCREST_10874,10874,"Cantine Maschio Prosecco Brt",1,""qq@gmail.com"",""ww@employee.ac.in"",NULL,NULL,NULL,NULL,36
+inventory1,BACARDI,RUM,2,""shreeya@gmail.com"",""inv@employee.ac.in"",53551,NULL,good,NULL,37
+inv2,BACARDI,RUM,2,""shreeya@gmail.com"",""gg@employee.ac.in"",53549,NULL,NULL,NULL,38
+invvv4,"Back Dog",Whisky,2,""shreeya@gmail.com"",""ww@employee.ac.in"",53554,NULL,NULL,NULL,39
+invvv4,"Back Dog",Whisky,2,""shreeya@gmail.com"",""ww@employee.ac.in"",53554,NULL,NULL,NULL,40
+invvv4,"Back Dog",Whisky,4,""shreeya@gmail.com"",""ww@employee.ac.in"",53554,NULL,NULL,NULL,41
+invvv4,"Back Dog",Whisky,2,""shreeya@gmail.com"",""ww@employee.ac.in"",53554,350mL,"Good product",NULL,42
+6_GOULCREST_11219,11219,"Josh Cellars Cab Svgn Sonoma",8,""shreeya@gmail.com"",""ww@employee.ac.in"",1,750mL,"good quality",NULL,43
+22_SHARNWICK_10874,10874,"Cantine Maschio Prosecco Brt",2,""shreeya@gmail.com"",""ww@employee.ac.in"",6,750mL,"amazing product",2024-03-10,1710085358381
+INV003,Brand3,Description3,300,NULL,NULL,NULL,NULL,NULL,2024-03-11,1710171254238
+54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",2,""shreeya@gmail.com"",""ww@employee.ac.in"",2,750mL,"bad packaging",2024-03-11,1710176901248
+13_TARMSWORTH_11219,11219,"Josh Cellars Cab Svgn Sonoma",2,""shreeya@gmail.com"",""ww@employee.ac.in"",8,750mL,"late delivery",2024-03-12,1710222669034
+54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",2,""shreeya@gmail.com"",""ww@employee.ac.in"",102,750mL,"less quantity",2024-03-12,1710262155905
+11_CARDEND_10874,10874,"Cantine Maschio Prosecco Brt",2,""shreeya@gmail.com"",""ww@employee.ac.in"",101,750mL,"awesome packaging",2024-03-17,1710692607199
+54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",1,""qw@gmail.com"",""ww@employee.ac.in"",2,750mL,NULL,2024-03-17,1710692822250
