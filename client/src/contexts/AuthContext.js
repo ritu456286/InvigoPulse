@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
       role: role,
       city: city,
     });
-    if (role == "CompanyWorker" && !email.endsWith("@employee.ac.in")) {
+    if (role == "CompanyWorker") {
       console.log("not an employee");
       return { data: false, error: true };
     }
