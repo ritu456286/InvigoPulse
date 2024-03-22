@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ResponsiveAppBar from '../navbar/navbar';
+import Footer from '../footer/footer';
 function CompanySales() {
     //   const [salesData, setSalesData] = useState([]);
     const [data, setData] = useState([]);
@@ -182,6 +183,7 @@ function CompanySales() {
             </tbody>
         </table>
     </div>
+    <Footer/>
 </div>
     );
 }

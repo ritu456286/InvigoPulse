@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ResponsiveAppBar from '../navbar/navbar';
-
+import Footer from '../footer/footer';
 const CompanyProfile = () => {
   const [companyData, setCompanyData] = useState(null);
   const email = sessionStorage.getItem("email");
@@ -136,6 +136,7 @@ const CompanyProfile = () => {
           </button>
         </form>
       </div>
+      <Footer/>
     </div>
   );
 };

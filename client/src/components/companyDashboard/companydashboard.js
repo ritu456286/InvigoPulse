@@ -6,7 +6,7 @@ import Clock from 'react-clock';
 import Navbar from '../navbar/navbar';
 // import DigitalClock from 'react-digital-clock';
 import 'tailwindcss/tailwind.css';
-
+import Footer from '../footer/footer';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -334,7 +334,7 @@ function CompanyPage() {
           </div>
         </div>
       </div>
-
+      <Footer/>
 
 
       {/* <div className="flex flex-wrap justify-around mt-10 mb-10">

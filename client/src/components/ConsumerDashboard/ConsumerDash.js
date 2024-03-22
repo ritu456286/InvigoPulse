@@ -4,8 +4,8 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ResponsiveAppBarcust from "../navbar/navbarcust";
-import axios from "axios";
 import Footer from "../footer/footer";
+import axios from "axios";
 const ConsumerDash = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
@@ -24,11 +24,12 @@ const ConsumerDash = () => {
     }
   }, []);
   return (
+    <div>
     <div className="p-20 flex flex-col items-center justify-center gap-8">
       <ResponsiveAppBarcust />
       <Outlet />
-      <Footer />
     </div>
+    <Footer/></div>
   );
 };
 

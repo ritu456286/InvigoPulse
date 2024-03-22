@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ResponsiveAppBar from '../navbar/navbar';
-
+import Footer from '../footer/footer';
 function CompanyInventory() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(100);
+  const [itemsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [editableItem, setEditableItem] = useState(null); // Track which item is being edited
@@ -343,6 +343,7 @@ function CompanyInventory() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

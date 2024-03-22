@@ -3,7 +3,7 @@ import axios from 'axios';
 import ResponsiveAppBar from '../navbar/navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import Footer from '../footer/footer';
 const email = sessionStorage.getItem("email");
 
 function AddStock() {
@@ -136,6 +136,7 @@ function AddStock() {
                     </div>
                 </div>
             )}
+            <Footer/>
         </div>
     );
 }
