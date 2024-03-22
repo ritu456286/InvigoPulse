@@ -121,38 +121,38 @@ The client application should now be running on `http://localhost:3000`.
 - Use the various features provided by InvigoPulse to manage inventory and deadstock efficiently.
 
 ## Snippets
+### Landing Page
+![Landing Page](snippets/a1.png)
 
-![Dashboard](snippets/a1.png)
+### Company Dashboard
+![Company Dashboard](snippets/a2.png)
 
+### Company Warehouse
+![Company Warehouse](snippets/a3.png)
 
-![Inventory Management](snippets/a2.png)
+### Company Add Stock
+![Company Add Stock](snippets/a4.png)
 
-
-![Deadstock Management](snippets/a3.png)
-
-
-![User Management](snippets/a4.png)
-
-
+### Company Add Stock
 ![Reporting and Analytics](snippets/a5.png)
 
+### Company Sales
+![Company Sales](snippets/a6.png)
 
-![Integration](snippets/a6.png)
+### Company Dead Stocks
+![Company Dead Stocks](snippets/a7.png)
 
+### Company Profile
+![Company Profile](snippets/a8.png)
 
-![E-commerce Website](snippets/a7.png)
+### Customer Browse
+![Customer Browse](snippets/a9.png)
 
+### Customer Cart
+![Customer Cart](snippets/a10.png)
 
-![Product Details](snippets/a8.png)
-
-
-![Cart](snippets/a9.png)
-
-
-![Checkout](snippets/a10.png)
-
-
-![Order History](snippets/a11.png)
+### Customer Orders
+![Customer Orders](snippets/a11.png)
 
 
 ![Reviews](snippets/a12.png)
