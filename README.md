@@ -1,5 +1,6 @@
 
 
+
 # InvigoPulse
 
 Welcome to InvigoPulse - Your one-stop solution for both Inventory and Deadstock Management.
@@ -42,6 +43,7 @@ Ensure you have the following software installed on your machine:
 - npm (Node Package Manager)
 - MySQL Server
 - React Js
+
 ### Installation
 
 1. Clone this repository to your local machine:
@@ -66,13 +68,13 @@ npm install
 
 ### Database Setup
 
-1. Navigate to the `backend/sql-connect` directory:
+1. **Modify Database Configuration**:
+    - Before running the database connection scripts, navigate to the `backend/sql-connect` directory and modify the database configuration in each script (`dbcon1.js` to `dbcon7.js`). Change the `username` and `password` variables accordingly.
 
-```bash
-cd backend/sql-connect
-```
+2. **Create Database**:
+    - Create a database named `db` in your MySQL server.
 
-2. Run each of the database connection scripts (`dbcon1.js` to `dbcon7.js`) in order to set up your database connection.
+3. Run each of the database connection scripts (`dbcon1.js` to `dbcon7.js`) in order to set up your database connection.
 
 ```bash
 node dbcon1.js
@@ -118,3 +120,42 @@ The client application should now be running on `http://localhost:3000`.
 - Access the client application by navigating to `http://localhost:3000` in your web browser.
 - Use the various features provided by InvigoPulse to manage inventory and deadstock efficiently.
 
+## Snippets
+
+![Dashboard](snippets/a1.png)
+
+
+![Inventory Management](snippets/a2.png)
+
+
+![Deadstock Management](snippets/a3.png)
+
+
+![User Management](snippets/a4.png)
+
+
+![Reporting and Analytics](snippets/a5.png)
+
+
+![Integration](snippets/a6.png)
+
+
+![E-commerce Website](snippets/a7.png)
+
+
+![Product Details](snippets/a8.png)
+
+
+![Cart](snippets/a9.png)
+
+
+![Checkout](snippets/a10.png)
+
+
+![Order History](snippets/a11.png)
+
+
+![Reviews](snippets/a12.png)
+```
+
+Make sure to adjust the MySQL username, password, and create the database as instructed before running the `dbcon` scripts.
