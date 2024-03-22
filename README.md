@@ -1,6 +1,5 @@
-Here's a `README.md` file for your full-stack project:
 
-```markdown
+
 # InvigoPulse
 
 InvigoPulse is a one-stop solution for both Inventory and Deadstock Management.
