@@ -134,19 +134,9 @@ function Homepage() {
             </h1>
             <div>
               <p className="text-start max-w-2xl font-semibold">
-                Introducing our innovative online platform that revolutionizes
-                the way customers enjoy their favorite drinks and empowers store
-                owners to effortlessly manage their inventory. <br />
-                With our user-friendly interface, customers can browse through
-                an extensive collection of beverages, from spirits and wines to
-                beers and mixers, all conveniently available at their
-                fingertips.
-                <br /> Our seamless ordering system ensures a smooth and secure
-                transaction process, allowing customers to purchase their
-                desired drinks with ease and confidence. Meanwhile, for store
-                owners, our advanced inventory management tools provide
-                real-time updates on stock levels, enabling efficient monitoring
-                and restocking to meet customer demand effectively.{" "}
+              Introducing our all-in-one web application for inventory and deadstock management! Our solution provides a seamless platform to track, analyze, and optimize your inventory, while efficiently managing deadstock to maximize profitability.
+              With our user-friendly interface, you can easily monitor stock levels, track inventory movements in real-time, and receive automated alerts for low stock or excess inventory. Our advanced analytics tools utilize historical data and predictive algorithms to forecast demand accurately, helping you make informed decisions about procurement and inventory replenishment.
+                <br /> But that's not all - our web app goes beyond traditional inventory management by offering robust deadstock management features.With customizable reporting dashboards and integration capabilities with other business systems, our web app provides a comprehensive solution tailored to your unique needs. Say goodbye to inventory headaches and hello to streamlined operations and increased profitability with our one-stop inventory and deadstock management solution. Try it today and experience the difference!{" "}
               </p>
             </div>
           </div>
