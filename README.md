@@ -6,7 +6,17 @@ Welcome to InvigoPulse - Your one-stop solution for both Inventory and Deadstock
 
 ## Overview
 
-InvigoPulse is a comprehensive management system designed to streamline inventory and deadstock processes. It offers a user-friendly interface and powerful features to optimize inventory control and management, making it an essential tool for businesses of all sizes.
+Introducing "InvigoPulse" – your all-in-one solution for Inventory and Deadstock Management. Designed to streamline inventory control and deadstock processes, InvigoPulse offers a user-friendly interface and powerful features for businesses of all sizes.
+
+### For Companies:
+- Interactive inventory management platform to effectively manage company profiles and inventory.
+- Features graphs, charts, and calendars for visualization on the dashboard.
+- ML Algorithm forecasts demand for each product, reducing deadstocks.
+- Put deadstocks at discounted prices on the e-commerce website to minimize losses.
+### For Customers:
+- E-commerce website to view and purchase products added by companies.
+- Buy products at original prices or discounted prices for deadstocks.
+- Add reviews and view past orders for a seamless shopping experience.
 
 ## Features
 
