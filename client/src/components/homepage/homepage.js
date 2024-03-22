@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import BackgroundImage from "../../asserts/backgroudImg_HomePage2.jpg";
 import aboutUsImg from "../../asserts/about_section.svg";
 import drinksImg from "../../asserts/drinksimg.svg";
-
+import Footer from "../footer/footer";
 function Homepage() {
   const [scrollY, setScrollY] = useState(0);
 
@@ -152,17 +152,7 @@ function Homepage() {
             </div>
           </div>
         </div>
-        <div
-          className=" w-full h-fit  flex flex-col justify-start items-center py-16 gap-8 bg-gray-900"
-          id="service"
-        >
-          <div className="flex flex-col gap-4 justify-center">
-            <h2 className="text-5xl font-bold text-white align-center text-center">
-              ABOUT OUR TEAM
-            </h2>
-            <p className="text-sm text-slate-300 max-w-2xl align-middle text-center"></p>
-          </div>
-        </div>
+        <Footer />
       </div>
     </div>
   );

@@ -5,29 +5,30 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ResponsiveAppBar from "../navbar/navbar";
+import Footer from "../footer/footer";
 const CompanyDash = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const user = sessionStorage.getItem("currentUser");
   const role = sessionStorage.getItem("role");
-  const {id}=user;
+  const { id } = user;
   useEffect(() => {
     console.log(currentUser);
-    
+
     console.log(role);
-    console.log(role=='"customer"');
-    if (user == null||role=='"customer"') {
+    console.log(role == '"customer"');
+    if (user == null || role == '"customer"') {
       navigate("/login");
-    }
-    else{
+    } else {
       navigate("/company/companyprofile");
     }
   }, []);
   return (
     <div>
-        <ResponsiveAppBar/>
+      <ResponsiveAppBar />
       <h1>Company Dashboard</h1>
       <Outlet />
+      <Footer />
     </div>
   );
 };
