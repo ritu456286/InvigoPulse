@@ -25,7 +25,7 @@ Ensure you have the following software installed on your machine:
 1. Clone this repository to your local machine:
 
 ```bash
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/ritu456286/InvigoPulse.git)
 ```
 
 2. Navigate to the `client` folder and install dependencies:
