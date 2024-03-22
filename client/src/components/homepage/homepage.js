@@ -92,10 +92,7 @@ function Homepage() {
               your all-in-one solution for <br /> Inventory and Deadstock Management!
             </h1>
             <p className="text-white max-w-3xl tracking-wide text-start font-light  leading-tight my-4 text-m">
-              Welcome to our online drinks store, where every pour tells a story
-              and every sip ignites a celebration. Embark on a journey through a
-              tantalizing array of beverages meticulously curated to tantalize
-              your taste buds and elevate your drinking experience.
+              Welcome to our Inventory management platform! Easily track stock levels, receive alerts, and optimize inventory with predictive analytics. Plus, efficiently manage deadstock with targeted strategies to maximize profitability. Embark on a journey through an enriching experience and elevate your profits!
             </p>
             <div className="flex gap-6">
               <button className="relative inline-flex items-center px-12 py-3 overflow-hidden text-m text-white border-2 border-white rounded-sm hover:text-white group hover:bg-white">
