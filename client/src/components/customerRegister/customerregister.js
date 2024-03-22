@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseConfig";
-import { AuthContext } from "../../cotexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { Box } from "@mui/material";
 

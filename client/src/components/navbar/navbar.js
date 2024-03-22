@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { AuthContext } from "../../cotexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 const pages = ['Company Page', 'Company Inventory', 'Company AddStock', 'Company Sales', 'Company Deadstocks'];
 const settings = ['Profile', 'Logout'];
 

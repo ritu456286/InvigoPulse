@@ -24,8 +24,9 @@ function CompanyDeadstocks() {
           email: email
         }
       });
-      setData(response.data);
-      setSearchResults(response.data); // Set search results initially to all data
+      const sortedData = response.data.sort((a, b) => new Date(a.expirydate) - new Date(b.expirydate));
+      setData(sortedData);
+      setSearchResults(sortedData); // Set search results initially to all data
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -46,6 +47,7 @@ function CompanyDeadstocks() {
     const uniqueQuantity = [...new Set(data.map(item => item.Quantity))];
     const uniqueDollars = [...new Set(data.map(item => item.Dollars))];
     const uniquePrice = [...new Set(data.map(item => item.Price))];
+    const uniquestockid = [...new Set(data.map(item => item.stockid))];
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleSearch = (event) => {
@@ -74,7 +76,8 @@ function CompanyDeadstocks() {
         (item.PurchasePrice?.toString().includes(searchText) || '') ||
         (item.Quantity?.toString().includes(searchText) || '') ||
         (item.Dollars?.toString().includes(searchText) || '') ||
-        (item.Price?.toString().includes(searchText) || '')
+        (item.Price?.toString().includes(searchText) || '') ||
+        (item.stockid?.toString().includes(searchText) || '')
       );
     });
     setSearchResults(filteredData);
@@ -203,6 +206,9 @@ function CompanyDeadstocks() {
             {uniquePrice.map((Price, index) => (
                 <option key={index} value={Price} />
             ))}
+            {uniquestockid.map((id, index) => (
+                <option key={index} value={id} />
+            ))}
         </datalist>
         <button type="submit" className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2">Submit</button>
     </form>
@@ -219,6 +225,7 @@ function CompanyDeadstocks() {
           <table className="w-full">
             <thead>
               <tr>
+              <th className="bg-red-300 text-center">StockId</th>
                 <th className="bg-red-300 text-center">InventoryId</th>
                 {/* <th className="bg-red-300 text-center">Store</th> */}
                 <th className="bg-red-300 text-center">Brand</th>
@@ -239,6 +246,7 @@ function CompanyDeadstocks() {
             <tbody>
               {currentItems.map((item, index) => (
                 <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-red-100'}>
+                  <td className="text-center">{item.stockid}</td>
                   <td className="text-center">{item.InventoryId}</td>
                   {/* <td className="text-center">{item.Store}</td> */}
                   <td className="text-center">{item.Brand}</td>

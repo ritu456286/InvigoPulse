@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../../cotexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ResponsiveAppBarcust from "../navbar/navbarcust";
 import axios from "axios";

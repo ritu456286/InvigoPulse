@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../cotexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 import register_svg from "../../asserts/register_svg.svg";
 import axios from "axios";

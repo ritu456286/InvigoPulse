@@ -14,7 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AdbIcon from "@mui/icons-material/Adb";
-import { AuthContext } from "../../cotexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 const pages = ["Customer Sales", "Customer Orders", "Customer Cart", 'Offers Sales',];

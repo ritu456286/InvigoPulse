@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./customercart.css"; // Import CSS file for styling
 import ResponsiveAppBarcust from "../navbar/navbarcust";
-import { AuthContext } from "../../cotexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 const CustomerCart = () => {
   const [cartData, setCartData] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false); // State for showing delete popup

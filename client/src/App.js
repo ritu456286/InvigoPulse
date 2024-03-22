@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./components/homepage/homepage";
 import CustomerLogin from "./components/customerLogin/customerlogin";
 import CustomerRegister from "./components/customerRegister/customerregister";
-import AllProducts from "./components/ConsumerDashboard/allProducts";
+
 import ConsumerDash from "./components/ConsumerDashboard/ConsumerDash";
-import { AuthProvider } from "./cotexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import CompanyPage from "./components/companyDashboard/companydashboard";
 // import App1 from './app1';
 import CompanyInventory from "./components/companyInventory/companyInventory";
