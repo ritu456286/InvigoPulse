@@ -19,7 +19,7 @@ Ensure you have the following software installed on your machine:
 - Node.js
 - npm (Node Package Manager)
 - MySQL Server
-
+- React Js
 ### Installation
 
 1. Clone this repository to your local machine:
