@@ -133,29 +133,29 @@ The client application should now be running on `http://localhost:3000`.
 ### Company Add Stock
 ![Company Add Stock](snippets/a4.png)
 
-### Company Add Stock
-![Reporting and Analytics](snippets/a5.png)
-
 ### Company Sales
-![Company Sales](snippets/a6.png)
+![Company Sales](snippets/a5.png)
 
 ### Company Dead Stocks
-![Company Dead Stocks](snippets/a7.png)
+![Company Dead Stocks](snippets/a6.png)
 
 ### Company Profile
-![Company Profile](snippets/a8.png)
+![Company Profile](snippets/a7.png)
 
 ### Customer Browse
-![Customer Browse](snippets/a9.png)
+![Customer Browse](snippets/a8.png)
 
 ### Customer Cart
-![Customer Cart](snippets/a10.png)
+![Customer Cart](snippets/a9.png)
 
 ### Customer Orders
-![Customer Orders](snippets/a11.png)
+![Customer Orders](snippets/a10.png)
 
+### Customer Offers and Sales
+![Customer Offers and Sales](snippets/a11.png)
 
-![Reviews](snippets/a12.png)
+### Customer Profile
+![Customer Profile](snippets/a12.png)
 ```
 
 Make sure to adjust the MySQL username, password, and create the database as instructed before running the `dbcon` scripts.
