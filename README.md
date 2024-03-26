@@ -81,7 +81,10 @@ npm install
 cd sql-connect
 node dbcon1.js
 node dbcon2.js
-...
+node dbcon3.js
+node dbcon4.js
+node dbcon5.js
+node dbcon6.js
 node dbcon7.js
 ```
 
