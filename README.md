@@ -78,6 +78,7 @@ npm install
 3. Run each of the database connection scripts (`dbcon1.js` to `dbcon7.js`) in order to set up your database connection.
 
 ```bash
+cd sql-connect
 node dbcon1.js
 node dbcon2.js
 ...
