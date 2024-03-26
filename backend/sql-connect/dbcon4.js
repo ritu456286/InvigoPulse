@@ -22,23 +22,23 @@ connection.connect((err) => {
   // SQL query to create the purchasefinal table
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS purchasefinal (
-      InventoryId VARCHAR(255),
-      Brand VARCHAR(255),
-      Description VARCHAR(255),
-      Size VARCHAR(50),
-      PONumber INT,
-      PODate DATE,
-      PurchasePrice DECIMAL(10,2),
-      Quantity INT,
-      Dollars DECIMAL(10,2),
-      companyemail VARCHAR(255),
-      stockid INT AUTO_INCREMENT PRIMARY KEY,
-      Price DECIMAL(10,2),
-      addtosale VARCHAR(3),
-      expirydate DATE,
-      FOREIGN KEY (companyemail) REFERENCES company(email),
-      FOREIGN KEY (InventoryId) REFERENCES city(InventoryId),
-    )`;
+    InventoryId VARCHAR(255),
+    Brand VARCHAR(255),
+    Description VARCHAR(255),
+    Size VARCHAR(50),
+    PONumber INT,
+    PODate DATE,
+    PurchasePrice DECIMAL(10,2),
+    Quantity INT,
+    Dollars DECIMAL(10,2),
+    companyemail VARCHAR(255),
+    stockid INT AUTO_INCREMENT PRIMARY KEY,
+    Price DECIMAL(10,2),
+    addtosale VARCHAR(3),
+    expirydate DATE,
+    FOREIGN KEY (companyemail) REFERENCES company(email),
+    FOREIGN KEY (InventoryId) REFERENCES city(InventoryId)
+);`;
 
   // Execute the create table query
   connection.query(createTableQuery, (err, results, fields) => {
