@@ -62,6 +62,7 @@ npm install
 3. Navigate to the `backend` folder and install dependencies:
 
 ```bash
+cd ..
 cd backend
 npm install
 ```
