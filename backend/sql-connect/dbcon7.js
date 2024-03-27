@@ -37,9 +37,7 @@ connection.connect((err) => {
       orderid BIGINT,
       FOREIGN KEY (InventoryId) REFERENCES city(InventoryId),
       FOREIGN KEY (customeremail) REFERENCES customer(email),
-      FOREIGN KEY (companyemail) REFERENCES company(email),
-      FOREIGN KEY (stockid) REFERENCES purchasefinal(stockid),
-      FOREIGN KEY (orderid) REFERENCES orders(orderid)
+      FOREIGN KEY (companyemail) REFERENCES company(email)
     )`;
 
   // Execute the create sales table query
