@@ -35,8 +35,7 @@ connection.connect((err) => {
       size VARCHAR(50),
       FOREIGN KEY (useremail) REFERENCES customer(email),
       FOREIGN KEY (companyemail) REFERENCES company(email),
-      FOREIGN KEY (inventoryId) REFERENCES city(InventoryId),
-      FOREIGN KEY (stockid) REFERENCES purchasefinal(stockid)
+      FOREIGN KEY (inventoryId) REFERENCES city(InventoryId)
     )`;
 
   // Execute the create cart table query
