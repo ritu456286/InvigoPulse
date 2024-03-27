@@ -35,8 +35,7 @@ connection.connect((err) => {
       orderid BIGINT AUTO_INCREMENT PRIMARY KEY,
       FOREIGN KEY (useremail) REFERENCES customer(email),
       FOREIGN KEY (companyemail) REFERENCES company(email),
-      FOREIGN KEY (inventoryId) REFERENCES city(InventoryId),
-      FOREIGN KEY (stockid) REFERENCES purchasefinal(stockid)
+      FOREIGN KEY (inventoryId) REFERENCES city(InventoryId)
     )`;
 
   // Execute the create orders table query
