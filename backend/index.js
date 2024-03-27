@@ -51,7 +51,8 @@ pool.query(createCartTableSQL, (err, results) => {
 // Handle POST request to /addcart
 app.post('/addcart', (req, res) => {
   const {stockid, inventoryId, brand, Description, quantity, Price, City, companyemail,size } = req.body;
-  const useremail = req.body.email;
+  var useremail = req.query.email;
+  useremail = useremail.replace(/"/g, '');
 
   console.log(useremail) // Hardcoded for demonstration
   console.log(req.body)
@@ -98,7 +99,7 @@ app.post('/addcart', (req, res) => {
 
 app.post('/companyemailreg', (req, res) => {
   const { email,city,phone,address } = req.body;
-  const email1= `"${email}"`;
+  const email1= `${email}`;
   // const singleQuotedDoubleQuotedEmail = `'${doubleQuotedEmail}'`;
   console.log(email1);
   // const email1=``${email}``
@@ -116,8 +117,9 @@ app.post('/companyemailreg', (req, res) => {
 });
 
 app.get('/customerprofile', (req, res) => {
-  const email = req.query.email;
-
+  // const email = req.query.email;
+  var email = req.query.email;
+  email = email.replace(/"/g, '');
   // Query to fetch data from the company table based on email
   const query = `SELECT * FROM customer WHERE email = ?`;
 
@@ -141,12 +143,14 @@ app.get('/customerprofile', (req, res) => {
 
 app.post('/updatecustomerprofile', async (req, res) => {
   try {
-    const { email, 
+    var { email, 
       name,
     phone,
     city,
     address,} = req.body;
     console.log(req.body)
+    
+    email = email.replace(/"/g, '');
     // Execute an UPDATE query to update the company profile for the given email
     const updateQuery = `
       UPDATE customer
@@ -165,8 +169,9 @@ app.post('/updatecustomerprofile', async (req, res) => {
 
 
 app.get('/companyprofile', (req, res) => {
-  const email = req.query.email;
-
+  // const email = req.query.email;
+  var email = req.query.email;
+  email = email.replace(/"/g, '');
   // Query to fetch data from the company table based on email
   const query = `SELECT * FROM company WHERE email = ?`;
 
@@ -190,8 +195,9 @@ app.get('/companyprofile', (req, res) => {
 
 app.post('/updatecompanyprofile', async (req, res) => {
   try {
-    const { email, companyName, ownerName, address, city, phoneNumber } = req.body;
-
+    var { email, companyName, ownerName, address, city, phoneNumber } = req.body;
+    // var email = req.query.email;
+    email = email.replace(/"/g, '');
     // Execute an UPDATE query to update the company profile for the given email
     const updateQuery = `
       UPDATE company
@@ -210,7 +216,7 @@ app.post('/updatecompanyprofile', async (req, res) => {
 
 app.post('/customeremailreg', (req, res) => {
   const { email, city, address, phone } = req.body;
-  const email1= `"${email}"`;
+  const email1= `${email}`;
   // const singleQuotedDoubleQuotedEmail = `'${doubleQuotedEmail}'`;
   console.log(email1);
   // Insert the email into the customer table
@@ -228,8 +234,9 @@ app.post('/customeremailreg', (req, res) => {
 
 app.get('/customercart', (req, res) => {
   // const useremail = '123@gmail.com'; // Hardcoded for demonstration
-  const useremail = req.query.email;
-
+  var useremail = req.query.email;
+  // var email = req.query.email;
+  useremail = useremail.replace(/"/g, '');
   console.log(useremail)
 
   // Query to fetch unique cart data with price and quantity
@@ -271,8 +278,10 @@ WHERE
 });
 
 app.post('/customerdeleteitem', (req, res) => {
-  const { brand, Description, inventoryId, quantity, companyemail, stockid } = req.body;
-  const useremail = req.body.email;
+  var { brand, Description, inventoryId, quantity, companyemail, stockid } = req.body;
+  var useremail = req.body.email;
+  companyemail = companyemail.replace(/"/g, ''); 
+  useremail = useremail.replace(/"/g, '');
   console.log(req.body)
   console.log(useremail) // Hardcoded for demonstration
 
@@ -304,8 +313,8 @@ app.post('/updateinventory', (req, res) => {
     Price,
     stockid
   } = req.body.editableItems;
-  const email = req.body.email;
-
+  var email = req.body.email;
+  email = email.replace(/"/g, '');
   // Update purchasefinal table
   const updatePurchaseFinalQuery = `UPDATE purchasefinal SET InventoryId = ?, Brand = ?, Description = ?, Size = ?, PONumber = ?, PurchasePrice = ?, Quantity = ?, Dollars = ?, Price=? WHERE InventoryId = ? AND Brand = ? AND Description = ? And companyemail=? And PONumber=? And stockid=?`;
 
@@ -359,7 +368,8 @@ app.post('/inventoryaddtosale', (req, res) => {
 
 app.post('/inventorydelete', (req, res) => {
   const { InventoryId, Brand, Description, PONumber, stockid } = req.body.item;
-  const email = req.body.email;
+  var email = req.body.email;
+  email = email.replace(/"/g, '');
   console.log(email);
 
   // Delete from purchasefinal table
@@ -387,9 +397,10 @@ app.post('/inventorydelete', (req, res) => {
   res.status(200).json({ message: 'Deletion successful' });
 });
 app.post('/customercheckout', (req, res) => {
-  const { brand, Description, inventoryId, quantity, size, Price, companyemail, stockid } = req.body;
-  const useremail = req.body.email;
-
+  var { brand, Description, inventoryId, quantity, size, Price, companyemail, stockid } = req.body;
+  var useremail = req.body.email;
+  useremail = useremail.replace(/"/g, '');
+  companyemail = companyemail.replace(/"/g, '');
   // Generate a unique orderid based on current datetime
   const orderId = Date.now();
 
@@ -458,9 +469,9 @@ app.post('/customercheckout', (req, res) => {
 
 
 app.get('/customerorders', (req, res) => {
-  const useremail = req.query.email;
+  var useremail = req.query.email;
   console.log(useremail) // Hardcoded for demonstration
-
+  useremail = useremail.replace(/"/g, '');
   // Query to fetch all customer orders for the specified useremail
   const query = 'SELECT o.*, co.email, co.companyName FROM orders AS o LEFT JOIN company AS co ON o.companyemail = co.email WHERE o.useremail = ?';
   const values = [useremail];
@@ -497,7 +508,7 @@ app.post('/addstock', async (req, res) => {
   // const email = req.body.email;
 
   
-
+  email = email.replace(/"/g, '');
   console.log(req.body);
   try {
     // Start transaction
@@ -668,8 +679,9 @@ function insertIntoPurchaseFinal(InventoryId, Brand, Description, Size, PONumber
 
 app.get('/dashboardcompany', async (req, res) => {
   try {
-    const email = req.query.email;
+    var email = req.query.email;
     console.log("ll")
+    email= email.replace(/"/g, '');
     console.log(email);
     
     // Query to fetch total unique products
@@ -843,7 +855,8 @@ app.get('/dashboardcompany', async (req, res) => {
 
 
 app.get('/companywarehouse', async (req, res) => {
-  const email = req.query.email;
+  var email = req.query.email;
+  email = email.replace(/"/g, '');
   console.log(email);
   try {
     const companyWarehouseQuery = `
@@ -867,7 +880,8 @@ WHERE pf.companyemail = '${email}' And pf.Quantity>=0;
 
 app.get('/companysales', async (req, res) => {
   try {
-    const email = req.query.email;
+    var email = req.query.email;
+    email = email.replace(/"/g, '');
     const extractQuery = `
       SELECT InventoryId, Brand, Description, Size, SalesQuantity, SalesDollars, SalesPrice, SalesDate,  customeremail, review 
       FROM Sales
