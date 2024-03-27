@@ -1,7 +1,8 @@
 id,inventoryId,brand,Description,quantity,useremail,city,price,companyemail,stockid,size
-41,37_PAETHSMOUTH_1004,1004,"Jim Beam w/2 Rocks Glasses",2,""ss@gmail.com"",C,16.49,""ww@employee.ac.in"",NULL,NULL
-61,54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",3,""shreeya1803singhal@gmail.com"",J,17.50,""ww@employee.ac.in"",NULL,NULL
-71,9_BLACKPOOL_10874,10874,"Cantine Maschio Prosecco Brt",2,""shreeya@gmail.com"",H,17.53,""ww@employee.ac.in"",100,750mL
-72,54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",1,""shreeya@gmail.com"",J,17.50,""ww@employee.ac.in"",2,750mL
-73,11_CARDEND_10874,10874,"Cantine Maschio Prosecco Brt",1,""shreeya@gmail.com"",B,17.53,""ww@employee.ac.in"",3,750mL
-75,11_CARDEND_10874,10874,"Cantine Maschio Prosecco Brt",2,""qw@gmail.com"",B,17.59,""ww@employee.ac.in"",3,750mL
+41,37_PAETHSMOUTH_1004,1004,"Jim Beam w/2 Rocks Glasses",2,ss@gmail.com,C,16.49,ww@employee.ac.in,NULL,NULL
+61,54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",3,shreeya1803singhal@gmail.com,J,17.50,ww@employee.ac.in,NULL,NULL
+71,9_BLACKPOOL_10874,10874,"Cantine Maschio Prosecco Brt",2,shreeya@gmail.com,H,17.53,ww@employee.ac.in,100,750mL
+72,54_GUTHRAM_10874,10874,"Cantine Maschio Prosecco Brt",1,shreeya@gmail.com,J,17.50,ww@employee.ac.in,2,750mL
+73,11_CARDEND_10874,10874,"Cantine Maschio Prosecco Brt",1,shreeya@gmail.com,B,17.53,ww@employee.ac.in,3,750mL
+75,11_CARDEND_10874,10874,"Cantine Maschio Prosecco Brt",2,qw@gmail.com,B,17.59,ww@employee.ac.in,3,750mL
+76,25_CAERSHIRE_10874,10874,"Cantine Maschio Prosecco Brt",4,shreeya@gmail.com,F,17.53,ww@employee.ac.in,4,750mL

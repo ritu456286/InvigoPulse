@@ -1,10 +1,9 @@
 email,companyName,ownerName,address,city,phoneNumber
-""aa@employee.ac.in"",NULL,NULL,NULL,NULL,NULL
-""gg@employee.ac.in"",NULL,NULL,NULL,NULL,NULL
-""inv@employee.ac.in"",NULL,NULL,NULL,NULL,NULL
-""rr@employee.ac.in"",NULL,NULL,1234567890,h,1234567890
-""sa@employee.ac.in"",NULL,NULL,1234567890,B,1234567890
-""ww@employee.ac.in"",Invigopulse,Shreeya,1234567890,"New Delhi","+91 8368973215"
-""zz@employee.ac.in"","Liquor Rizzz",Shreeya,1234567890,"New Delhi",1234567890
+aa@employee.ac.in,NULL,NULL,NULL,NULL,NULL
 dd@employee.ac.in,NULL,NULL,NULL,NULL,NULL
-ww@employee.ac.in,NULL,NULL,NULL,NULL,NULL
+gg@employee.ac.in,NULL,NULL,NULL,NULL,NULL
+inv@employee.ac.in,NULL,NULL,NULL,NULL,NULL
+rr@employee.ac.in,NULL,NULL,1234567890,h,1234567890
+sa@employee.ac.in,NULL,NULL,1234567890,B,1234567890
+ww@employee.ac.in,Invigopulse,Shreeya,1234567890,"New Delhi","+91 8368973215"
+zz@employee.ac.in,"Liquor Rizzz",Shreeya,1234567890,"New Delhi",1234567890
